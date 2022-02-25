@@ -25,16 +25,6 @@ public class Order {
     @JoinColumn (name = "SERV_PACKAGE")
     private Package serv_package;
 
-    //uni-directional Many-To-Many association to OptionalProduct
-    @ManyToMany (fetch = FetchType.LAZY)
-    @JoinTable (
-            name = "contain",
-            schema = "telcoservice",
-            joinColumns = @JoinColumn (name = "ORDEER"),
-            inverseJoinColumns = @JoinColumn (name = "OPTIONAL_PRODUCT")
-    )
-    private List<OptionalProduct> optionalProducts;
-
     public Order() {
     }
 
@@ -92,13 +82,5 @@ public class Order {
 
     public void setServ_package(Package serv_package) {
         this.serv_package = serv_package;
-    }
-
-    public List<OptionalProduct> getOptionalProducts() {
-        return optionalProducts;
-    }
-
-    public void setOptionalProducts(List<OptionalProduct> optionalProducts) {
-        this.optionalProducts = optionalProducts;
     }
 }

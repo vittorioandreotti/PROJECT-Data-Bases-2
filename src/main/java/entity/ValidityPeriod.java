@@ -5,6 +5,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "validityperiod", schema = "telcoservice")
+@NamedQueries({
+        @NamedQuery(name = "ValidityPeriod.findAll", query = "SELECT v FROM ValidityPeriod v")
+})
 public class ValidityPeriod {
     @Id
     private int num_month;

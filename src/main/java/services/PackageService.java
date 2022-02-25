@@ -14,7 +14,7 @@ public class PackageService {
 
     public PackageService () {}
 
-    public List<Package> getPackInfo() {
+    public List<Package> findAllPackages() {
         List packages = null;
 
         try {

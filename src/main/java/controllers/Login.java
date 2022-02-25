@@ -37,7 +37,7 @@ public class Login extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ServletContext servletContext = getServletContext();
+        ServletContext servletContext = this.getServletContext();
         final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 
         String username = request.getParameter("username_log");
@@ -60,7 +60,7 @@ public class Login extends HttpServlet {
         String path;
         if (user == null) {
             ctx.setVariable("errmsg", "Incorrect username or password");
-            path = servletContext.getContextPath() + "/loginregister.html";
+            path = "/loginregister.html";
             this.templateEngine.process(path, ctx, response.getWriter());
         }
         else {

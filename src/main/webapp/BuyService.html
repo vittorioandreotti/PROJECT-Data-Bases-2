@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="css/BuyService.css" media="screen">
     <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
+    <script th:inline = "javascript">
+        function populate(s1, s2) {
+            var s1 = document.getElementById(s1);
+            var s2 = document.getElementById(s2);
+            s2.innerHTML = "";
+            /*<![CDATA[*/
+            /*[#th:each="p : ${packages}"]*/
+
+        }
+    </script>
     <meta name="generator" content="Nicepage 4.2.0, nicepage.com">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     
@@ -41,7 +51,7 @@
                     <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="loginregister.html" style="padding: 10px 20px;">Log-In</a>
                 </li>
                 <li class="u-nav-item">
-                    <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="BuyService.html" style="padding: 10px 20px;">Buy Service</a>
+                    <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="buyservice" style="padding: 10px 20px;">Buy Service</a>
                 </li>
             </ul>
           </div>
@@ -56,7 +66,7 @@
                     <li class="u-nav-item"><a class="u-button-style u-nav-link" href="loginregister.html" style="padding: 10px 20px;">Log-In</a>
                     </li>
                     <li class="u-nav-item">
-                        <a class="u-button-style u-nav-link" href="BuyService.html" style="padding: 10px 20px;">Buy Service</a>
+                        <a class="u-button-style u-nav-link" href="buyservice" style="padding: 10px 20px;">Buy Service</a>
                     </li>
                 </ul>
               </div>
@@ -73,21 +83,17 @@
             <div class="u-form-group u-form-select u-form-group-1">
               <label for="select-65e2" class="u-label u-label-1">Select one package</label>
               <div class="u-form-select-wrapper">
-                <select id="select-65e2" name="select" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-1">
-                  <option value="Item 1">Item 1</option>
-                  <option value="Item 2">Item 2</option>
-                  <option value="Item 3">Item 3</option>
+                <select id="select-65e2" name="select" onchange="populate(this.id, 'select-1a73')" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-1">
+                  <option th:each="p : ${packages}" th:text="${p.name}" th:value="${p.id}"></option>
                 </select>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
               </div>
             </div>
             <div class="u-form-group u-form-select u-form-group-2">
-              <label for="select-221f" class="u-label u-label-2">Select the validity period</label>
+              <label for="select-221f" class="u-label u-label-2">Select the" validity period</label>
               <div class="u-form-select-wrapper">
                 <select id="select-221f" name="select-1" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-2">
-                  <option value="Item 1">Item 1</option>
-                  <option value="Item 2">Item 2</option>
-                  <option value="Item 3">Item 3</option>
+                  <option th:each="v : ${validityPeriods}" th:text="${v.num_month}" th:value="${v.num_month}"></option>
                 </select>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
               </div>
@@ -95,10 +101,15 @@
             <div class="u-form-group u-form-select u-form-group-3">
               <label for="select-1a73" class="u-label u-label-3">Select the optional product</label>
               <div class="u-form-select-wrapper">
-                <select id="select-1a73" name="select-2" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-3">
-                  <option value="Item 1">Item 1</option>
-                  <option value="Item 2">Item 2</option>
-                  <option value="Item 3">Item 3</option>
+                <select id="select-1a73" name="select-2" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-3" size="3" multiple>
+                    <span>
+                        <script th:inline = "javascript">
+                        var e = document.getElementById("select-65e2");
+                        var packageName = e.value;
+                        for (var optionalProduct = )
+                        </script>
+                    </span>
+                  <option th:each="op : ${p.optionalProducts}" th:text="${op.name}" th:value="${op.name}"></option>
                 </select>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
               </div>
@@ -112,9 +123,6 @@
               </a>
               <input type="submit" value="submit" class="u-form-control-hidden">
             </div>
-            <div class="u-form-send-message u-form-send-success"> Grazie! Il tuo messaggio è stato inviato con successo! </div>
-            <div class="u-form-send-error u-form-send-message"> Impossibile inviare il messaggio. Si prega di correggere gli errori e riprovare a inviare. </div>
-            <input type="hidden" value="" name="recaptchaResponse">
           </form>
         </div>
       </div>
@@ -123,15 +131,6 @@
     
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-4706"><div class="u-align-left u-clearfix u-sheet u-sheet-1"></div></footer>
     <section class="u-backlink u-clearfix u-grey-80">
-      <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
-        <span>Website Templates</span>
-      </a>
-      <p class="u-text">
-        <span>created with</span>
-      </p>
-      <a class="u-link" href="" target="_blank">
-        <span>Website Builder Software</span>
-      </a>. 
     </section>
   </body>
 </html>

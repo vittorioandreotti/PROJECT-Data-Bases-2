@@ -7,7 +7,6 @@ import java.util.List;
 @Table (name = "package", schema = "telcoservice")
 @NamedQueries({
         @NamedQuery(name = "Package.findAll", query = "SELECT p FROM Package p"),
-        @NamedQuery(name = "Package.findById", query = "SELECT p FROM Package p WHERE p.id=1"),
 })
 public class Package {
     @Id
@@ -28,6 +27,16 @@ public class Package {
             inverseJoinColumns = { @JoinColumn (name = "SERVICE") }
     )
     private List<Service> services;
+
+    //uni-directional Many-To-Many association to OptionalProduct
+    @ManyToMany (fetch = FetchType.LAZY)
+    @JoinTable (
+            name = "contain",
+            schema = "telcoservice",
+            joinColumns = @JoinColumn (name = "PACKAGE"),
+            inverseJoinColumns = @JoinColumn (name = "OPTIONAL_PRODUCT")
+    )
+    private List<OptionalProduct> optionalProducts;
 
     public Package() {
     }
@@ -62,5 +71,13 @@ public class Package {
 
     public void setServices(List<Service> services) {
         this.services = services;
+    }
+
+    public List<OptionalProduct> getOptionalProducts() {
+        return optionalProducts;
+    }
+
+    public void setOptionalProducts(List<OptionalProduct> optionalProducts) {
+        this.optionalProducts = optionalProducts;
     }
 }
