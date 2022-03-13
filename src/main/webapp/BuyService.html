@@ -1,122 +1,88 @@
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
     <title>Buy Service</title>
     <link rel="stylesheet" href="css/nicepage.css" media="screen">
     <link rel="stylesheet" href="css/BuyService.css" media="screen">
-    <script class="u-script" type="text/javascript" src="js/jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="js/nicepage.js" defer=""></script>
-    <script th:inline = "javascript">
-        function populate(s1, s2) {
-            var s1 = document.getElementById(s1);
-            var s2 = document.getElementById(s2);
-            s2.innerHTML = "";
-            /*<![CDATA[*/
-            /*[#th:each="p : ${packages}"]*/
 
+    <script type="text/javascript" th:inline = "javascript">
+        /*<![CDATA[*/
+            function populate(s1, s2) {
+                let sel1 = document.getElementById(s1);
+                let sel2 = document.getElementById(s2);
+                sel2.innerHTML = "";
+            /*[# th:each="p : ${packages}"]*/
+                var packId = [[${p.id}]];
+                if (sel1.value == packId) {
+                    /*[# th:each="op : ${p.optionalProducts}"]*/
+                        var option = document.createElement("option");
+                        option.value = [[${op.name}]];
+                        option.innerHTML = [[${op.name}]];
+                        sel2.options.add(option);
+                    /*[/]*/
+                }
+            /*[/]*/
+         /*]]>*/
         }
     </script>
-    <meta name="generator" content="Nicepage 4.2.0, nicepage.com">
+
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
-    
-    
-    <script type="application/ld+json">{
-		"@context": "http://schema.org",
-		"@type": "Organization",
-		"name": "Site1"
-}</script>
-    <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="Buy Service">
-    <meta property="og:description" content="">
-    <meta property="og:type" content="website">
+
   </head>
   <body class="u-body u-xl-mode"><header class="u-align-center u-clearfix u-header u-header" id="sec-9706"><div class="u-align-left u-clearfix u-sheet u-sheet-1">
         <h2 class="u-text u-text-default u-text-palette-1-base u-text-1">TelcoService</h2>
-        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
-          <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 500;">
-            <a class="u-button-style u-custom-active-color u-custom-border u-custom-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-text-active-color u-custom-text-color u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-nav-link" href="#">
-              <svg class="u-svg-link" viewBox="0 0 24 24"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use></svg>
-              <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
-</g></svg>
-            </a>
-          </div>
+        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1" style="opacity: 1">
           <div class="u-custom-menu u-nav-container">
             <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
                 <li class="u-nav-item">
                     <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="getpackinfo" style="padding: 10px 20px;">Home</a>
                 </li>
                 <li class="u-nav-item">
-                    <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="loginregister.html" style="padding: 10px 20px;">Log-In</a>
+                    <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="LoginRegister.html" style="padding: 10px 20px;">Log-In</a>
                 </li>
                 <li class="u-nav-item">
                     <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="buyservice" style="padding: 10px 20px;">Buy Service</a>
                 </li>
             </ul>
           </div>
-          <div class="u-custom-menu u-nav-container-collapse">
-            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
-              <div class="u-inner-container-layout u-sidenav-overflow">
-                <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
-                    <li class="u-nav-item">
-                        <a class="u-button-style u-nav-link" href="getpackinfo" style="padding: 10px 20px;">Home</a>
-                    </li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link" href="loginregister.html" style="padding: 10px 20px;">Log-In</a>
-                    </li>
-                    <li class="u-nav-item">
-                        <a class="u-button-style u-nav-link" href="buyservice" style="padding: 10px 20px;">Buy Service</a>
-                    </li>
-                </ul>
-              </div>
-            </div>
-            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
-          </div>
         </nav>
-        <p class="u-align-center u-text u-text-default u-text-2">Benvenuto,&nbsp;&nbsp;</p>
+      <p class="u-text u-text-default u-text-2" style="margin: 13px 105px 14px auto; font-size: larger" th:if="${username != null}" th:text="${'Welcome ' + username}"></p>
       </div></header>
     <section class="u-clearfix u-section-1" id="sec-ddc7">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div class="u-form u-form-1">
           <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
             <div class="u-form-group u-form-select u-form-group-1">
-              <label for="select-65e2" class="u-label u-label-1">Select one package</label>
+              <label for="select-pack" class="u-label u-label-1">Select one package</label>
               <div class="u-form-select-wrapper">
-                <select id="select-65e2" name="select" onchange="populate(this.id, 'select-1a73')" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-1">
+                <select id="select-pack" name="select" onchange="populate(this.id, 'select-op-p')" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-1">
+                    <option selected>---</option>
                   <option th:each="p : ${packages}" th:text="${p.name}" th:value="${p.id}"></option>
                 </select>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
               </div>
             </div>
             <div class="u-form-group u-form-select u-form-group-2">
-              <label for="select-221f" class="u-label u-label-2">Select the" validity period</label>
+              <label for="select-val-p" class="u-label u-label-2">Select the validity period</label>
               <div class="u-form-select-wrapper">
-                <select id="select-221f" name="select-1" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-2">
-                  <option th:each="v : ${validityPeriods}" th:text="${v.num_month}" th:value="${v.num_month}"></option>
+                <select id="select-val-p" name="select-1" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-2">
+                    <option selected>---</option>
+                    <option th:each="v : ${validityPeriods}" th:text="${v.num_month}" th:value="${v.num_month}"></option>
                 </select>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
               </div>
             </div>
             <div class="u-form-group u-form-select u-form-group-3">
-              <label for="select-1a73" class="u-label u-label-3">Select the optional product</label>
+              <label for="select-op-p" class="u-label u-label-3">Select the optional product</label>
               <div class="u-form-select-wrapper">
-                <select id="select-1a73" name="select-2" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-3" size="3" multiple>
-                    <span>
-                        <script th:inline = "javascript">
-                        var e = document.getElementById("select-65e2");
-                        var packageName = e.value;
-                        for (var optionalProduct = )
-                        </script>
-                    </span>
-                  <option th:each="op : ${p.optionalProducts}" th:text="${op.name}" th:value="${op.name}"></option>
+                <select id="select-op-p" name="select-2" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-3" size="3" multiple>
                 </select>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
               </div>
             </div>
             <div class="u-form-date u-form-group u-form-group-4">
               <label for="date-0fbb" class="u-label u-label-4">Select the start date of subscription</label>
-              <input type="date" placeholder="MM/DD/YYYY" id="date-0fbb" name="date" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-4" required="">
+              <input type="date" placeholder="MM/DD/YYYY" id="date-0fbb" name="date" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-4" required>
             </div>
             <div class="u-align-center u-form-group u-form-submit">
               <a href="#" class="u-btn u-btn-submit u-button-style">Confirm<br>

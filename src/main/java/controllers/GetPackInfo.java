@@ -6,6 +6,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import services.PackageService;
+import services.UserService;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
@@ -21,6 +22,8 @@ import java.util.List;
 public class GetPackInfo extends HttpServlet {
     @EJB (name = "services/PackageService")
     private PackageService packageService;
+    @EJB (name = "services/UserService")
+    private UserService userService;
     private TemplateEngine templateEngine;
 
     public void init() throws ServletException {
@@ -34,16 +37,20 @@ public class GetPackInfo extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Package> packages;
+        String username = null;
+        if (request.getSession().getAttribute("username") != null)
+            username = userService.findByUsername((String) request.getSession().getAttribute("username")).getUsername();
         try {
             packages = packageService.findAllPackages();
         } catch (Exception e) {
             response.sendError(500, "Not possible to get data");
             return;
         }
-        String path = "/index.html";
+        String path = "/index";
         ServletContext servletContext = this.getServletContext();
         WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
         ctx.setVariable("packages", packages);
+        ctx.setVariable("username", username);
         this.templateEngine.process(path, ctx, response.getWriter());
     }
 

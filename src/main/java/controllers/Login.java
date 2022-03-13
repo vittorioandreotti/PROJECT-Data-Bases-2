@@ -21,10 +21,10 @@ import java.io.IOException;
 
 @WebServlet(name = "Log-In", value = "/login")
 public class Login extends HttpServlet {
+    private static final long serialVersionUID = 1L;
     @EJB(name = "services/UserService")
     private UserService userService;
     private TemplateEngine templateEngine;
-    public Login() {}
 
     public void init() throws ServletException {
         ServletContext servletContext = getServletContext();
@@ -36,9 +36,8 @@ public class Login extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        ServletContext servletContext = this.getServletContext();
-        final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+        ServletContext servletContext = getServletContext();
+        WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 
         String username = request.getParameter("username_log");
         String password = request.getParameter("password_log");
@@ -52,21 +51,32 @@ public class Login extends HttpServlet {
         }
         catch (UserTypeException exception) {
 //            exception.printStackTrace();
-            ctx.setVariable("errmsg", exception.getMessage());
-            String path = servletContext.getContextPath() + "/loginregister.html";
+            ctx.setVariable("loginmsg", exception.getMessage());
+            String path = "/LoginRegister";
             this.templateEngine.process(path, ctx, response.getWriter());
+            return;
         }
 
         String path;
         if (user == null) {
-            ctx.setVariable("errmsg", "Incorrect username or password");
-            path = "/loginregister.html";
+            ctx.setVariable("loginmsg", "Incorrect username or password");
+            path = "/LoginRegister";
             this.templateEngine.process(path, ctx, response.getWriter());
+            return;
         }
         else {
-            request.getSession().setAttribute("user", user);
-            path = servletContext.getContextPath() + "/getpackinfo";
+            request.getSession().setAttribute("username", user.getUsername());
+            path = getServletContext().getContextPath() + "/getpackinfo";
             response.sendRedirect(path);
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doPost(req, resp);
+    }
+
+    public void destroy(){
+
     }
 }

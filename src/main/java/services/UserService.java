@@ -4,6 +4,7 @@ import entity.User;
 import exception.UserTypeException;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NonUniqueResultException;
@@ -15,6 +16,8 @@ import java.util.List;
 
 @Stateless
 public class UserService {
+    @EJB(name = "services/UserService")
+    private UserService userService;
     @PersistenceContext(unitName = "telcoservice")
     private EntityManager entityManager;
 
@@ -39,16 +42,19 @@ public class UserService {
     }
 
     public void createUser(String username, String email, String password) throws CredentialException {
+        User user = userService.findByUsername(username);
+        if(user != null) {
+            throw new CredentialException("Existing username: try another one");
+        }
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setEmail(email);
         newUser.setPassword(password);
         newUser.setUser_type(false);
         this.entityManager.persist(newUser);
-        try {
-            this.entityManager.flush();
-        } catch (DatabaseException e) {
-            throw new CredentialException("Existing username: try another one");
-        }
+    }
+
+    public User findByUsername (String username) {
+        return (entityManager.find(User.class, username));
     }
 }

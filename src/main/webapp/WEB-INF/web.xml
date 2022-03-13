@@ -6,4 +6,16 @@
     <welcome-file-list>
         <welcome-file>getpackinfo</welcome-file>
     </welcome-file-list>
+<!--    <filter>-->
+<!--        <filter-name>LoginChecker</filter-name>-->
+<!--        <filter-class>filter.LoggedIn</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>LoginChecker</filter-name>-->
+<!--        <url-pattern>/buyservice</url-pattern>-->
+<!--        <url-pattern>/getpackinfo</url-pattern>-->
+<!--        <url-pattern>/login</url-pattern>-->
+<!--        <url-pattern>/register</url-pattern>-->
+<!--        <url-pattern>/confirmation</url-pattern>-->
+<!--    </filter-mapping>-->
 </web-app>

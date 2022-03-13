@@ -1,6 +1,7 @@
 package controllers;
 
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import services.UserService;
@@ -33,15 +34,21 @@ public class Register extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ServletContext servletContext = getServletContext();
+        WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+        String path = "/LoginRegister";
+
         String username = request.getParameter("username_reg");
         String email = request.getParameter("email_reg");
         String password = request.getParameter("password_reg");
         try {
             userService.createUser(username, email, password);
-        } catch (CredentialException e) {
-
+        } catch (CredentialException exception) {
+            ctx.setVariable("registermsg", exception.getMessage());
+            this.templateEngine.process(path, ctx, response.getWriter());
+            return;
         }
-        String path = getServletContext().getContextPath() + "/loginregister.html";
-        response.sendRedirect(path);
+        ctx.setVariable("registermsg", "Registration was successful");
+        this.templateEngine.process(path, ctx, response.getWriter());
     }
 }
