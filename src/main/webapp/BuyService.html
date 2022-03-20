@@ -29,7 +29,8 @@
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
 
   </head>
-  <body class="u-body u-xl-mode"><header class="u-align-center u-clearfix u-header u-header" id="sec-9706"><div class="u-align-left u-clearfix u-sheet u-sheet-1">
+  <body class="u-body u-xl-mode">
+  <header class="u-align-center u-clearfix u-header u-header" id="sec-9706"><div class="u-align-left u-clearfix u-sheet u-sheet-1">
         <h2 class="u-text u-text-default u-text-palette-1-base u-text-1">TelcoService</h2>
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1" style="opacity: 1">
           <div class="u-custom-menu u-nav-container">
@@ -47,7 +48,8 @@
           </div>
         </nav>
       <p class="u-text u-text-default u-text-2" style="margin: 13px 105px 14px auto; font-size: larger" th:if="${username != null}" th:text="${'Welcome ' + username}"></p>
-      </div></header>
+      </div>
+  </header>
     <section class="u-clearfix u-section-1" id="sec-ddc7">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div class="u-form u-form-1">
@@ -55,7 +57,7 @@
             <div class="u-form-group u-form-select u-form-group-1">
               <label for="select-pack" class="u-label u-label-1">Select one package</label>
               <div class="u-form-select-wrapper">
-                <select id="select-pack" name="select" onchange="populate(this.id, 'select-op-p')" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-1">
+                <select id="select-pack" name="select_pack" onchange="populate(this.id, 'select-op-p')" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-1">
                     <option selected>---</option>
                   <option th:each="p : ${packages}" th:text="${p.name}" th:value="${p.id}"></option>
                 </select>
@@ -65,7 +67,7 @@
             <div class="u-form-group u-form-select u-form-group-2">
               <label for="select-val-p" class="u-label u-label-2">Select the validity period</label>
               <div class="u-form-select-wrapper">
-                <select id="select-val-p" name="select-1" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-2">
+                <select id="select-val-p" name="select_valPer" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-2">
                     <option selected>---</option>
                     <option th:each="v : ${validityPeriods}" th:text="${v.num_month}" th:value="${v.num_month}"></option>
                 </select>
@@ -75,17 +77,17 @@
             <div class="u-form-group u-form-select u-form-group-3">
               <label for="select-op-p" class="u-label u-label-3">Select the optional product</label>
               <div class="u-form-select-wrapper">
-                <select id="select-op-p" name="select-2" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-3" size="3" multiple>
+                <select id="select-op-p" name="select_optProd" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-3" size="3" multiple>
                 </select>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
               </div>
             </div>
             <div class="u-form-date u-form-group u-form-group-4">
               <label for="date-0fbb" class="u-label u-label-4">Select the start date of subscription</label>
-              <input type="date" placeholder="MM/DD/YYYY" id="date-0fbb" name="date" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-4" required>
+              <input type="date" placeholder="MM/DD/YYYY" id="date-0fbb" name="dateSub" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-4" required>
             </div>
             <div class="u-align-center u-form-group u-form-submit">
-              <a href="#" class="u-btn u-btn-submit u-button-style">Confirm<br>
+              <a th:href="@{/confirmation}" class="u-btn u-btn-submit u-button-style">Confirm<br>
               </a>
               <input type="submit" value="submit" class="u-form-control-hidden">
             </div>
