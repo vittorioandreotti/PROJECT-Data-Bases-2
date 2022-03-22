@@ -1,6 +1,7 @@
 package services;
 
 import entity.Package;
+import entity.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
@@ -23,5 +24,9 @@ public class PackageService {
             e.printStackTrace();
         }
         return packages;
+    }
+
+    public Package findById (Integer id) {
+        return (entityManager.find(Package.class, id));
     }
 }

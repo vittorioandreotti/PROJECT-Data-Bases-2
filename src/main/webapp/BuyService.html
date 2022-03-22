@@ -53,7 +53,7 @@
     <section class="u-clearfix u-section-1" id="sec-ddc7">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div class="u-form u-form-1">
-          <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+          <form action="confirmation" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
             <div class="u-form-group u-form-select u-form-group-1">
               <label for="select-pack" class="u-label u-label-1">Select one package</label>
               <div class="u-form-select-wrapper">
@@ -87,11 +87,10 @@
               <input type="date" placeholder="MM/DD/YYYY" id="date-0fbb" name="dateSub" class="u-border-1 u-border-grey-75 u-input u-input-rectangle u-white u-input-4" required>
             </div>
             <div class="u-align-center u-form-group u-form-submit">
-              <a th:href="@{/confirmation}" class="u-btn u-btn-submit u-button-style">Confirm<br>
-              </a>
-              <input type="submit" value="submit" class="u-form-control-hidden">
+              <input type="submit" value="Confirm" class="u-btn u-btn-submit u-button-style">
             </div>
           </form>
+            <p class="u-text u-text-palette-2-base u-text-3" th:text="${loginmsg}"></p>
         </div>
       </div>
     </section>

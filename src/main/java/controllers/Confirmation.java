@@ -5,6 +5,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import services.PackageService;
 import services.UserService;
 
 import javax.ejb.EJB;
@@ -21,6 +22,8 @@ import java.io.IOException;
 public class Confirmation extends HttpServlet {
     @EJB(name = "services/UserServices")
     private UserService userService;
+    @EJB(name = "services/PackageServices")
+    private PackageService packageService;
     private TemplateEngine templateEngine;
 
     public Confirmation () {}
@@ -35,19 +38,28 @@ public class Confirmation extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext servletContext = this.getServletContext();
-        WebContext ctx = new WebContext(req, resp, servletContext, req.getLocale());
+        WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 
-        User user = null;
-        String username = (String)req.getSession().getAttribute("username");
+        String username = (String)request.getSession().getAttribute("username");
+        String packageName = packageService.findById(Integer.valueOf(request.getParameter("select_pack"))).getName();
         if (username != null){
-            ctx.setVariable("package", (String)req.getSession().getAttribute("select_pack"));
-            ctx.setVariable("validity", (String)req.getSession().getAttribute("select_pack"));
-
+            ctx.setVariable("package", packageName);
+            ctx.setVariable("validity", request.getParameter("select_valPer"));
+            ctx.setVariable("opprod", request.getParameter("select_optProd"));
+            ctx.setVariable("dateSub", request.getParameter("dateSub"));
+            String path = "/Confirmation.html";
+            this.templateEngine.process(path, ctx, response.getWriter());
         } else {
             String path = servletContext.getContextPath() + "/buyservice";
-            resp.sendRedirect(path);
+            //response.
+            response.sendRedirect(path);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 }
