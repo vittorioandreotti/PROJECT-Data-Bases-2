@@ -1,11 +1,12 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "optionalproduct", schema = "telcoservice")
+@NamedQueries({
+        @NamedQuery(name = "OptionalProduct.findAll", query = "SELECT op FROM OptionalProduct op"),
+})
 public class OptionalProduct {
     @Id
     private String name;

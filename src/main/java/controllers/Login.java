@@ -1,7 +1,6 @@
 package controllers;
 
 import entity.User;
-import exception.UserTypeException;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -46,18 +45,12 @@ public class Login extends HttpServlet {
         try {
             user = userService.checkCredentials(username, password);
         } catch (CredentialException | NonUniqueResultException exception) {
-//            exception.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credential");
-        }
-        catch (UserTypeException exception) {
-//            exception.printStackTrace();
-            ctx.setVariable("loginmsg", exception.getMessage());
-            String path = "/LoginRegister";
-            this.templateEngine.process(path, ctx, response.getWriter());
-            return;
         }
 
         String path;
+
+        //Error message
         if (user == null) {
             ctx.setVariable("loginmsg", "Incorrect username or password");
             path = "/LoginRegister";
@@ -66,8 +59,16 @@ public class Login extends HttpServlet {
         }
         else {
             request.getSession().setAttribute("username", user.getUsername());
-            path = getServletContext().getContextPath() + "/getpackinfo";
-            response.sendRedirect(path);
+
+            //Check on UserType end redirect to correct HomePage
+            if (!user.isUser_type()) {
+                path = getServletContext().getContextPath() + "/getpackinfo";
+                response.sendRedirect(path);
+            }
+            else {
+                path = getServletContext().getContextPath() + "/GoToEmployeeHomePage";
+                response.sendRedirect(path);
+            }
         }
     }
 

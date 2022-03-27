@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
-import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 @Stateless
@@ -17,7 +16,7 @@ public class ValidityPeriodService {
 
     public ValidityPeriodService(){}
 
-    public List<ValidityPeriod> findAllValidityPeriods () {
+    public List<ValidityPeriod> findAll() {
         List<ValidityPeriod> validityPeriods= null;
         try {
            validityPeriods = entityManager.createNamedQuery("ValidityPeriod.findAll", ValidityPeriod.class).getResultList();
@@ -25,5 +24,9 @@ public class ValidityPeriodService {
             exception.printStackTrace();
         }
         return validityPeriods;
+    }
+
+    public ValidityPeriod findByNum_Month (int num_month) {
+        return (entityManager.find(ValidityPeriod.class, num_month));
     }
 }

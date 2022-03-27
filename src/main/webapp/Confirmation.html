@@ -2,7 +2,7 @@
 <html style="font-size: 16px;" lang="en">
 <head>
     <title>Confirmation</title>
-    <link rel="stylesheet" href="css/nicepage.css" media="screen">
+    <link rel="stylesheet" href="css/main.css" media="screen">
     <link rel="stylesheet" href="css/Confirmation.css" media="screen">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
 </head>
@@ -46,9 +46,9 @@
                     <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-3">Validity period</td>
                     <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${validity}"></td>
                 </tr>
-                <tr style="height: 65px;">
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-5">Optional Product</td>
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${opprod}"></td>
+                <tr style="height: 65px;" th:each="op, iterStat : ${opProd}">
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-5"><p th:if="${iterStat.first}" th:text = "${'Optional Product'}"></p></td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${op}"></td>
                 </tr>
                 <tr style="height: 65px;">
                     <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-7">Start date of subscription</td>
@@ -56,7 +56,7 @@
                 </tr>
                 <tr style="height: 65px;">
                     <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-palette-1-light-2 u-table-cell u-table-cell-9">TOTAL PRICE</td>
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-palette-1-light-2 u-table-cell u-table-cell-10">TOTAL PRICE</td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-palette-1-light-2 u-table-cell u-table-cell-10" th:text="${totalPrice}"></td>
                 </tr>
                 </tbody>
             </table>

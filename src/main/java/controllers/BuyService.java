@@ -37,21 +37,25 @@ public class BuyService extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Package> packages;
-        List<ValidityPeriod> validityPeriods;
+        //Get all Packages and Validity Periods to display in select
+        List<Package> packages = null;
+        List<ValidityPeriod> validityPeriods = null;
         try {
             packages = packageService.findAllPackages();
-            validityPeriods = validityPeriodService.findAllValidityPeriods();
+            validityPeriods = validityPeriodService.findAll();
         } catch (Exception e) {
             response.sendError(500, "Not possible to get data");
-            return;
         }
+
         String path = "/BuyService.html";
         ServletContext servletContext = this.getServletContext();
         WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
         ctx.setVariable("packages", packages);
         ctx.setVariable("validityPeriods", validityPeriods);
+        ctx.setVariable("loginmsg", request.getSession().getAttribute("loginmsg"));
         this.templateEngine.process(path, ctx, response.getWriter());
+
+        request.getSession().removeAttribute("loginmsg");
     }
 
     @Override

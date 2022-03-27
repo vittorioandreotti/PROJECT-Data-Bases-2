@@ -9,9 +9,11 @@ import java.util.List;
         @NamedQuery(name = "Package.findAll", query = "SELECT p FROM Package p"),
 })
 public class Package {
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     private String name;
 
     //bi-directional One-To-Many association to Order

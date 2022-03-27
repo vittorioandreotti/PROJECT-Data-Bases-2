@@ -5,10 +5,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "service", schema = "telcoservice")
+@NamedQueries({
+        @NamedQuery(name = "Service.findAll", query = "SELECT s FROM Service s"),
+})
 public class Service {
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
     private String type;
     private int n_min;
     private int n_sms;
@@ -24,11 +27,11 @@ public class Service {
     public Service() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

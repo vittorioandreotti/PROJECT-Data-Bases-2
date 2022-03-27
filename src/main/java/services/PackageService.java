@@ -1,6 +1,8 @@
 package services;
 
+import entity.OptionalProduct;
 import entity.Package;
+import entity.Service;
 import entity.User;
 
 import javax.ejb.Stateless;
@@ -28,5 +30,13 @@ public class PackageService {
 
     public Package findById (Integer id) {
         return (entityManager.find(Package.class, id));
+    }
+
+    public void createPackage (String name, List<Service> services, List<OptionalProduct> optionalProducts) {
+        Package newPackage = new Package();
+        newPackage.setName(name);
+        newPackage.setServices(services);
+        newPackage.setOptionalProducts(optionalProducts);
+        this.entityManager.persist(newPackage);
     }
 }
