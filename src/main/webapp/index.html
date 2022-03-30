@@ -32,15 +32,20 @@
 </header>
 <section class="u-clearfix u-section-1" id="sec-a058">
     <div class="u-clearfix u-sheet u-valign-top u-sheet-1">
-        <h4 class="u-text u-text-default u-text-1">Welcome in TelcoService Home Page.</h4>
+        <h4 class="u-text u-text-default u-text-1" style="font-weight: 700">Welcome in TelcoService Consumer Home Page.</h4>
     </div>
 </section>
 
 
 <section class="u-align-center u-clearfix u-section-2" id="sec-c310">
     <div class="u-clearfix u-sheet u-sheet-1">
-        <h2 class="u-text u-text-default u-text-1">Service Package</h2>
-        <p class="u-text u-text-2">Find out which service package is right for you:</p>
+        <div th:if="${packages != null}">
+            <h2 class="u-text u-text-default u-text-1">Service Packages</h2>
+            <p class="u-text u-text-2">Find out which service package is right for you:</p>
+        </div>
+        <div th:if="${packages == null}">
+            <h2 class="u-text u-text-default u-text-1">No Packages have been created yet.</h2>
+        </div>
         <div class="u-clearfix u-expanded-width u-gutter-20 u-layout-wrap u-layout-wrap-1">
             <div class="u-gutter-0 u-layout">
                 <div class="u-layout-row">

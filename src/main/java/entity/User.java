@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -16,15 +17,25 @@ public class User {
     private boolean user_type;
     private boolean insolvent;
 
-    //uni-directional Many-To-One association to Order
-    @ElementCollection
-    @CollectionTable (
-            name = "SERVICEACTIV",
-            schema = "telcoservice",
-            joinColumns = @JoinColumn (name = "USER", referencedColumnName = "USERNAME")
-    )
-    @MapKeyJoinColumn(name="GROOUP", referencedColumnName = "ID")
-    Map<Order, ServActiv> orders;
+//    @ManyToOne
+//    @JoinTable (name = "PROVA",
+//            schema = "telcoservice",
+//            joinColumns = @JoinColumn (name = "USER"),
+//            inverseJoinColumns = @JoinColumn (name = "ORDEER"))
+//    private Order order;
+
+//    @OneToMany (mappedBy = "user")
+//        private List<ServActiv> servActivs;
+
+//    //uni-directional Many-To-One association to Order
+//    @ElementCollection
+//    @CollectionTable (
+//            name = "SERVICEACTIV",
+//            schema = "telcoservice",
+//            joinColumns = @JoinColumn (name = "USER", referencedColumnName = "USERNAME")
+//    )
+//    @MapKeyJoinColumn(name="ORDEER", referencedColumnName = "ID")
+//    Map<Order, ServActiv> orders;
 
     public User() {
     }
@@ -69,11 +80,11 @@ public class User {
         this.insolvent = insolvent;
     }
 
-    public Map<Order, ServActiv> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Map<Order, ServActiv> orders) {
-        this.orders = orders;
-    }
+//    public Map<Order, ServActiv> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(Map<Order, ServActiv> orders) {
+//        this.orders = orders;
+//    }
 }

@@ -60,6 +60,7 @@ public class Confirmation extends HttpServlet {
         String totalPrice = Float.toString(orderService.totalPrice(valPer, optProds));
 
         if (user != null && !user.isUser_type()){
+
             ctx.setVariable("username", user.getUsername());
             ctx.setVariable("package", aPackage.getName());
             ctx.setVariable("validity", valPer.getNum_month());

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="20411271-e2a6-4355-afbc-34d08f14fbaa" name="DDL data source Mapping">
+      <data-sources db="96669088-567e-48f8-ae9f-06a3f20a7a59" ddl="1492f54a-f72f-43b2-8d88-3302d324f916" />
+      <scope>
+        <node kind="schema" qname="telcoservice" />
+      </scope>
+    </mapping>
+  </component>
+</project>

@@ -61,7 +61,7 @@
                 </tbody>
             </table>
         </div>
-        <a class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1">BUY</a>
+        <a th:href="@{/Buy(package = ${package}, validity = ${validity}, opProd = ${opProd}, dateSub = ${dateSub}, totalPrice = ${totalPrice})}" class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1">BUY</a>
     </div>
 </section>
 

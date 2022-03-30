@@ -9,7 +9,7 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
     private Date date_order;
     private Date date_sub;
     private boolean is_valid;
@@ -25,14 +25,17 @@ public class Order {
     @JoinColumn (name = "SERV_PACKAGE")
     private Package serv_package;
 
+//    @OneToMany (mappedBy = "order")
+//    private List<ServActiv> servActivs;
+
     public Order() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
