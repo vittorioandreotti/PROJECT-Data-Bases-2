@@ -13,9 +13,6 @@ public class ValidityPeriod {
     private int num_month;
     private float monthly_fee;
 
-//    //bi-directional One-To-Many association to Order
-//    @OneToMany(mappedBy = "validity_period", fetch = FetchType.LAZY)
-//    private List<Order> orders;
 
     public ValidityPeriod() {
     }
@@ -36,11 +33,4 @@ public class ValidityPeriod {
         this.monthly_fee = monthly_fee;
     }
 
-//    public List<Order> getOrders() {
-//        return orders;
-//    }
-//
-//    public void setOrders(List<Order> orders) {
-//        this.orders = orders;
-//    }
 }

@@ -44,7 +44,7 @@
                 </tr>
                 <tr style="height: 65px;">
                     <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-3">Validity period</td>
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${validity}"></td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${validity + ' months'}"></td>
                 </tr>
                 <tr style="height: 65px;" th:each="op, iterStat : ${opProd}">
                     <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-5"><p th:if="${iterStat.first}" th:text = "${'Optional Product'}"></p></td>
@@ -52,11 +52,11 @@
                 </tr>
                 <tr style="height: 65px;">
                     <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-7">Start date of subscription</td>
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${dateSub}"></td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${#dates.format(dateSub, 'dd-mm-yyyy')}"></td>
                 </tr>
                 <tr style="height: 65px;">
                     <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-palette-1-light-2 u-table-cell u-table-cell-9">TOTAL PRICE</td>
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-palette-1-light-2 u-table-cell u-table-cell-10" th:text="${totalPrice}"></td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-palette-1-light-2 u-table-cell u-table-cell-10" th:text="${#numbers.formatDecimal(totalPrice, 1, 2)}"></td>
                 </tr>
                 </tbody>
             </table>

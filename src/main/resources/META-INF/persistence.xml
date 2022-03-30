@@ -12,7 +12,6 @@
         <class>entity.OptionalProduct</class>
         <class>entity.User</class>
         <class>entity.Alert</class>
-        <class>entity.ServActiv</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

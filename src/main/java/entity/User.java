@@ -17,25 +17,10 @@ public class User {
     private boolean user_type;
     private boolean insolvent;
 
-//    @ManyToOne
-//    @JoinTable (name = "PROVA",
-//            schema = "telcoservice",
-//            joinColumns = @JoinColumn (name = "USER"),
-//            inverseJoinColumns = @JoinColumn (name = "ORDEER"))
-//    private Order order;
 
-//    @OneToMany (mappedBy = "user")
-//        private List<ServActiv> servActivs;
-
-//    //uni-directional Many-To-One association to Order
-//    @ElementCollection
-//    @CollectionTable (
-//            name = "SERVICEACTIV",
-//            schema = "telcoservice",
-//            joinColumns = @JoinColumn (name = "USER", referencedColumnName = "USERNAME")
-//    )
-//    @MapKeyJoinColumn(name="ORDEER", referencedColumnName = "ID")
-//    Map<Order, ServActiv> orders;
+    //bi-directional One-To-Many association to Ordeer
+    @OneToMany (mappedBy = "user")
+    private List<Order> orders;
 
     public User() {
     }
@@ -80,11 +65,11 @@ public class User {
         this.insolvent = insolvent;
     }
 
-//    public Map<Order, ServActiv> getOrders() {
-//        return orders;
-//    }
-//
-//    public void setOrders(Map<Order, ServActiv> orders) {
-//        this.orders = orders;
-//    }
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 }
