@@ -43,7 +43,7 @@ public class CreateOptProd extends HttpServlet {
         try {
             monthlyFee = Float.parseFloat(request.getParameter("optProdMonthlyFee"));
         } catch (NumberFormatException exception) {
-            request.getSession().setAttribute("createOptProdmsg", "Monthly Fee must be a number");
+            request.getSession().setAttribute("createOptProdmsg", "Monthly Fee must be a number with Dot");
             path = getServletContext().getContextPath() + "/GoToEmployeeHomePage";
             response.sendRedirect(path);
             return;

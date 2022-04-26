@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "optionalproduct", schema = "telcoservice")
 @NamedQueries({
-        @NamedQuery(name = "OptionalProduct.findAll", query = "SELECT op FROM OptionalProduct op"),
+        @NamedQuery(name = "OptionalProduct.findAll", query = "SELECT op FROM OptionalProduct op")
 })
 public class OptionalProduct {
     @Id

@@ -2,8 +2,8 @@
 <html style="font-size: 16px;" lang="en">
   <head>
     <title>Buy Service</title>
-    <link rel="stylesheet" href="css/main.css" media="screen">
-    <link rel="stylesheet" href="css/BuyService.css" media="screen">
+    <link rel="stylesheet" href="csss/main.css" media="screen">
+    <link rel="stylesheet" href="csss/BuyService.css" media="screen">
 
     <script type="text/javascript" th:inline = "javascript">
         /*<![CDATA[*/
@@ -71,7 +71,7 @@
                     <option selected>---</option>
                     <option th:each="v : ${validityPeriods}" th:text="${v.num_month}" th:value="${v.num_month}"></option>
                 </select>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
               </div>
             </div>
             <div class="u-form-group u-form-select u-form-group-3">
@@ -90,7 +90,7 @@
               <input type="submit" value="Confirm" class="u-btn u-btn-submit u-button-style">
             </div>
           </form>
-            <p class="u-text u-text-palette-2-base u-text-3" style="font-weight: 700" th:text="${loginmsg}"></p>
+            <p class="u-text u-text-palette-2-base u-text-3" style="font-weight: 700" th:text="${msg}"></p>
         </div>
       </div>
     </section>

@@ -2,22 +2,27 @@ package entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity (name = "Ordeer")
 @Table (name = "ordeer", schema = "telcoservice")
+@NamedQueries(
+        @NamedQuery(name = "Order.findByInsolventUser", query = "SELECT o FROM Ordeer o WHERE o.user = :user AND o.is_valid = false")
+)
 public class Order {
 
     @Id
     @GeneratedValue
     private int id;
-    private Date date_sub;
+    private LocalDateTime date_sub;
     private boolean is_valid;
     private float total_price;
-    private Date date_start_activation;
-    private Date date_end_activation;
+    private LocalDate date_start_activation;
+    private LocalDate date_end_activation;
     private int rej_numb;
-    private int date_last_rej;
+    private LocalDateTime date_last_rej;
 
     //bi-directional Many-To-One association to ValidityPeriod
     @ManyToOne
@@ -34,6 +39,16 @@ public class Order {
     @JoinColumn (name = "USER")
     private User user;
 
+    //uni-directional Many-To-Many association to OptionalProduct
+    @ManyToMany (fetch = FetchType.LAZY)
+    @JoinTable (
+            name = "optpr_ord",
+            schema = "telcoservice",
+            joinColumns = @JoinColumn (name = "ORDEER"),
+            inverseJoinColumns = @JoinColumn (name = "OPTIONAL_PRODUCT")
+    )
+    private List<OptionalProduct> optionalProducts;
+
     public Order() {
     }
 
@@ -45,11 +60,11 @@ public class Order {
         this.id = id;
     }
 
-    public Date getDate_sub() {
+    public LocalDateTime getDate_sub() {
         return date_sub;
     }
 
-    public void setDate_sub(Date date_sub) {
+    public void setDate_sub(LocalDateTime date_sub) {
         this.date_sub = date_sub;
     }
 
@@ -69,19 +84,19 @@ public class Order {
         this.total_price = total_price;
     }
 
-    public Date getDate_start_activation() {
+    public LocalDate getDate_start_activation() {
         return date_start_activation;
     }
 
-    public void setDate_start_activation(Date date_start_activation) {
+    public void setDate_start_activation(LocalDate date_start_activation) {
         this.date_start_activation = date_start_activation;
     }
 
-    public Date getDate_end_activation() {
+    public LocalDate getDate_end_activation() {
         return date_end_activation;
     }
 
-    public void setDate_end_activation(Date date_end_activation) {
+    public void setDate_end_activation(LocalDate date_end_activation) {
         this.date_end_activation = date_end_activation;
     }
 
@@ -93,11 +108,13 @@ public class Order {
         this.rej_numb = rej_numb;
     }
 
-    public int getDate_last_rej() {
+    public void addRej_numb() { this.rej_numb += 1;}
+
+    public LocalDateTime getDate_last_rej() {
         return date_last_rej;
     }
 
-    public void setDate_last_rej(int date_last_rej) {
+    public void setDate_last_rej(LocalDateTime date_last_rej) {
         this.date_last_rej = date_last_rej;
     }
 
@@ -123,5 +140,13 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<OptionalProduct> getOptionalProducts() {
+        return optionalProducts;
+    }
+
+    public void setOptionalProducts(List<OptionalProduct> optionalProducts) {
+        this.optionalProducts = optionalProducts;
     }
 }

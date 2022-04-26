@@ -43,6 +43,16 @@ public class OptionalProductService {
         return optionalProducts;
     }
 
+    public ArrayList<String> getOptProdsNames (List<OptionalProduct> optionalProductList) {
+        ArrayList<String> optProdsNames = new ArrayList<>();
+        String optProdName;
+        for (OptionalProduct opProd : optionalProductList) {
+            optProdName = opProd.getName();
+            optProdsNames.add(optProdName);
+        }
+        return optProdsNames;
+    }
+
     public void createOptProd (String name, Float monthlyFee) throws MoreThanOneElement {
         OptionalProduct optionalProduct = this.findByName(name);
         if (optionalProduct != null){

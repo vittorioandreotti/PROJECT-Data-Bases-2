@@ -6,9 +6,10 @@ import java.util.Map;
 
 @Entity
 @Table (name = "user", schema = "telcoservice")
-@NamedQueries(
-    @NamedQuery(name = "User.checkCredentials", query = "SELECT u FROM User u where u.username = :username and u.password = :password")
-)
+@NamedQueries({
+        @NamedQuery(name = "User.checkCredentials", query = "SELECT u FROM User u where u.username = :username and u.password = :password"),
+        @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u where u.username = :username")
+})
 public class User {
     @Id
     private String username;

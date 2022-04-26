@@ -43,6 +43,7 @@ public class GoToEmployeeHomePage extends HttpServlet {
             optionalProducts = optionalProductService.findAll();
         } catch (Exception e) {
             response.sendError(500, "Not possible to get data");
+            return;
         }
 
         String msgOptProd = (String) request.getSession().getAttribute("createOptProdmsg");

@@ -45,6 +45,7 @@ public class BuyService extends HttpServlet {
             validityPeriods = validityPeriodService.findAll();
         } catch (Exception e) {
             response.sendError(500, "Not possible to get data");
+            return;
         }
 
         String path = "/BuyService.html";
@@ -52,10 +53,10 @@ public class BuyService extends HttpServlet {
         WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
         ctx.setVariable("packages", packages);
         ctx.setVariable("validityPeriods", validityPeriods);
-        ctx.setVariable("loginmsg", request.getSession().getAttribute("loginmsg"));
+        ctx.setVariable("msg", request.getSession().getAttribute("msg"));
         this.templateEngine.process(path, ctx, response.getWriter());
 
-        request.getSession().removeAttribute("loginmsg");
+        request.getSession().removeAttribute("msg");
     }
 
     @Override

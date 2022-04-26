@@ -1,13 +1,11 @@
 package services;
 
 import entity.User;
+import org.eclipse.persistence.config.QueryHints;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
+import javax.persistence.*;
 import javax.security.auth.login.CredentialException;
 import javax.security.auth.login.CredentialNotFoundException;
 import java.util.List;
@@ -48,7 +46,20 @@ public class UserService {
         this.entityManager.persist(newUser);
     }
 
+    //Without refresh
     public User findByUsername (String username) {
         return (entityManager.find(User.class, username));
+    }
+
+    //With refresh
+    public User findByUsernameNamedQuery (String username) {
+        User user;
+        try {
+            user = entityManager.createNamedQuery("User.findByUsername", User.class).setParameter("username", username).setHint(QueryHints.REFRESH, true).getSingleResult();
+        } catch (NoResultException e)
+        {
+            user = null;
+        }
+        return user;
     }
 }

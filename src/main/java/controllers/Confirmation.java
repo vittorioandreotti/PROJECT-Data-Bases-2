@@ -4,7 +4,6 @@ import entity.OptionalProduct;
 import entity.Package;
 import entity.User;
 import entity.ValidityPeriod;
-import exception.UserNotLoggedIn;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
@@ -12,14 +11,12 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import services.*;
 
 import javax.ejb.EJB;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.WebConnection;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet(name = "Confirmation", value = "/confirmation")
@@ -32,6 +29,8 @@ public class Confirmation extends HttpServlet {
     private OrderService orderService;
     @EJB(name = "service/PackageService")
     private PackageService packageService;
+    @EJB(name = "service/OptionalProductService")
+    private OptionalProductService optionalProductService;
     private TemplateEngine templateEngine;
 
     public Confirmation () {}
@@ -46,39 +45,49 @@ public class Confirmation extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext servletContext = this.getServletContext();
         WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        //Declaration here because of try-catch block
+        Package aPackage;
+        ValidityPeriod valPer;
+        List<OptionalProduct> optProds;
+        LocalDate dateSub;
+        String totalPrice;
 
         User user = null;
         if (request.getSession().getAttribute("username") != null)
             user = userService.findByUsername((String)request.getSession().getAttribute("username"));
-        Package aPackage = packageService.findById(Integer.parseInt(request.getParameter("select_pack")));
-        ValidityPeriod valPer = validityPeriodService.findByNum_Month(Integer.parseInt(request.getParameter("select_valPer")));
-        String[] optProds = request.getParameterValues("select_optProd");
-        String dateSub = request.getParameter("dateSub");
-        String totalPrice = Float.toString(orderService.totalPrice(valPer, optProds));
+        try {
+            aPackage = packageService.findById(Integer.parseInt(request.getParameter("select_pack")));
+            valPer = validityPeriodService.findByNum_Month(Integer.parseInt(request.getParameter("select_valPer")));
+            optProds = optionalProductService.findSet(request.getParameterValues("select_optProd"));
+            dateSub = LocalDate.parse((request.getParameter("dateSub")));
+            totalPrice = Float.toString(orderService.totalPrice(valPer, optProds));
+        } catch (NumberFormatException e) {
+            request.getSession().setAttribute("msg", "--- is not valid, please select one element in the list.");
+            String path = servletContext.getContextPath() + "/buyservice";
+            response.sendRedirect(path);
+            return;
+        }
 
         if (user != null && !user.isUser_type()){
 
             ctx.setVariable("username", user.getUsername());
-            ctx.setVariable("package", aPackage.getName());
-            ctx.setVariable("validity", valPer.getNum_month());
-            ctx.setVariable("opProd", optProds);
+            ctx.setVariable("package", aPackage);
+            ctx.setVariable("validity", valPer);
+            ctx.setVariable("opProds", request.getParameterValues("select_optProd"));
             ctx.setVariable("dateSub", dateSub);
             ctx.setVariable("totalPrice",totalPrice);
 
             String path = "/Confirmation.html";
             this.templateEngine.process(path, ctx, response.getWriter());
         } else {
-            request.getSession().setAttribute("loginmsg", "You are not logged in, please Log-In before create an Order.");
+            request.getSession().setAttribute("msg", "You are not logged in, please Log-In before create an Order.");
             String path = servletContext.getContextPath() + "/buyservice";
             response.sendRedirect(path);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
     }
 }
