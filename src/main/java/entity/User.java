@@ -8,7 +8,8 @@ import java.util.Map;
 @Table (name = "user", schema = "telcoservice")
 @NamedQueries({
         @NamedQuery(name = "User.checkCredentials", query = "SELECT u FROM User u where u.username = :username and u.password = :password"),
-        @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u where u.username = :username")
+        @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u where u.username = :username"),
+        @NamedQuery(name = "User.getInsolventUsers", query = "SELECT u FROM User u WHERE u.insolvent = true")
 })
 public class User {
     @Id

@@ -3,8 +3,8 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Home</title>
-    <link rel="stylesheet" href="csss/main.css" media="screen">
-    <link rel="stylesheet" href="csss/EmployeeHomePage.css" media="screen">
+    <link rel="stylesheet" href="cssss/main.css" media="screen">
+    <link rel="stylesheet" href="cssss/EmployeeHomePage.css" media="screen">
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
 </head>
 
@@ -16,7 +16,7 @@
             <div class="u-custom-menu u-nav-container">
                 <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
                     <li class="u-nav-item">
-                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="GoToEmployeePage" style="padding: 10px 20px;">Home</a>
+                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="GoToEmployeeHomePage" style="padding: 10px 20px;">Home</a>
                     </li>
                     <li class="u-nav-item">
                         <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="SalesReport" style="padding: 10px 20px;">Sales Report</a>
@@ -52,7 +52,7 @@
                                                 <label for="select-1d4f" class="u-label">Select Services</label>
                                                 <div class="u-form-select-wrapper">
                                                     <select id="select-1d4f" name="services" class="u-border-1 u-border-grey-30 u-input u-input-rectangle" size="7" multiple="multiple" required="required">
-                                                        <option th:each="s : ${services}" th:text="${s.type}" th:value="${s.id}"></option>
+                                                        <option th:each="s : ${services}" th:text="${s.getId() + ' - ' + s.getType()}" th:value="${s.id}"></option>
                                                     </select>
                                                 </div>
                                             </div>

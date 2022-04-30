@@ -1,11 +1,9 @@
 package controllers;
 
-import entity.Alert;
-import entity.ReportOptProd;
-import entity.ReportPack;
-import entity.ReportPackValPer;
+import entity.*;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import services.*;
@@ -27,6 +25,10 @@ public class SalesReport extends HttpServlet {
     private ReportPackValPerService reportPackValPerService;
     @EJB(name = "services/AlertService")
     private AlertService alertService;
+    @EJB(name = "services/UserService")
+    private UserService userService;
+    @EJB(name = "services/OrderService")
+    private OrderService orderService;
     private TemplateEngine templateEngine;
 
     public void init() throws ServletException {
@@ -34,6 +36,7 @@ public class SalesReport extends HttpServlet {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
         templateResolver.setTemplateMode(TemplateMode.HTML);
         this.templateEngine = new TemplateEngine();
+        this.templateEngine.addDialect(new Java8TimeDialect());
         this.templateEngine.setTemplateResolver(templateResolver);
         templateResolver.setSuffix(".html");
     }
@@ -43,13 +46,17 @@ public class SalesReport extends HttpServlet {
 
         List <Alert> alerts;
         List <ReportPack> reportPacks;
-        List <ReportOptProd> reportOptProds;
+        ReportOptProd reportOptProds;
         List <ReportPackValPer> reportPackValPers;
+        List <User> insolventUsers;
+        List <Order> suspendedOrders;
 
         alerts = alertService.findAll();
         reportPacks = reportPackService.findAll();
-        reportOptProds = reportOpProdService.findAll();
+        reportOptProds = reportOpProdService.bestSeller();
         reportPackValPers = reportPackValPerService.findAll();
+        insolventUsers = userService.getInsolventUsers();
+        suspendedOrders = orderService.getSuspendedOrders();
 
         String path = "/SalesReport";
         ServletContext servletContext= this.getServletContext();
@@ -58,6 +65,9 @@ public class SalesReport extends HttpServlet {
         ctx.setVariable("reportPacks", reportPacks);
         ctx.setVariable("reportOptProds", reportOptProds);
         ctx.setVariable("reportPackValPers", reportPackValPers);
+        ctx.setVariable("insolventUsers", insolventUsers);
+        ctx.setVariable("suspendedOrders", suspendedOrders);
+        ctx.setVariable("username", request.getSession().getAttribute("usernameEmployee"));
         this.templateEngine.process(path, ctx, response.getWriter());
     }
 }

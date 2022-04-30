@@ -1,6 +1,7 @@
 package services;
 
 import entity.ReportPack;
+import org.eclipse.persistence.config.QueryHints;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,7 +21,7 @@ public class ReportPackService {
         List<ReportPack> reportPackServices;
 
         try {
-            reportPackServices = entityManager.createNamedQuery("ReportPack.findAll", ReportPack.class).getResultList();
+            reportPackServices = entityManager.createNamedQuery("ReportPack.findAll", ReportPack.class).setHint(QueryHints.REFRESH, true).getResultList();
         } catch (PersistenceException e) {
             reportPackServices = null;
             e.printStackTrace();

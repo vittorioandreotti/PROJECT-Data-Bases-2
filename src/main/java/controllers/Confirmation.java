@@ -6,6 +6,7 @@ import entity.User;
 import entity.ValidityPeriod;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import services.*;
@@ -40,6 +41,7 @@ public class Confirmation extends HttpServlet {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
         templateResolver.setTemplateMode(TemplateMode.HTML);
         this.templateEngine = new TemplateEngine();
+        this.templateEngine.addDialect(new Java8TimeDialect());
         this.templateEngine.setTemplateResolver(templateResolver);
         templateResolver.setSuffix(".html");
     }
@@ -58,8 +60,8 @@ public class Confirmation extends HttpServlet {
         String totalPrice;
 
         User user = null;
-        if (request.getSession().getAttribute("username") != null)
-            user = userService.findByUsername((String)request.getSession().getAttribute("username"));
+        if (request.getSession().getAttribute("usernameConsumer") != null)
+            user = userService.findByUsername((String)request.getSession().getAttribute("usernameConsumer"));
         try {
             aPackage = packageService.findById(Integer.parseInt(request.getParameter("select_pack")));
             valPer = validityPeriodService.findByNum_Month(Integer.parseInt(request.getParameter("select_valPer")));
@@ -73,7 +75,15 @@ public class Confirmation extends HttpServlet {
             return;
         }
 
-        if (user != null && !user.isUser_type()){
+        if (dateSub.isBefore(LocalDate.now())) {
+           request.getSession().setAttribute("msg", "The start date of subscription must be equal or later than the current date.");
+
+           String path = servletContext.getContextPath() + "/buyservice";
+           response.sendRedirect(path);
+           return;
+        }
+
+        if (user != null){
 
             ctx.setVariable("username", user.getUsername());
             ctx.setVariable("package", aPackage);
@@ -82,7 +92,7 @@ public class Confirmation extends HttpServlet {
             ctx.setVariable("dateSub", dateSub);
             ctx.setVariable("totalPrice",totalPrice);
 
-            String path = "/Confirmation.html";
+            String path = "/Confirmation";
             this.templateEngine.process(path, ctx, response.getWriter());
         } else {
             request.getSession().setAttribute("msg", "You are not logged in, please Log-In before create an Order.");

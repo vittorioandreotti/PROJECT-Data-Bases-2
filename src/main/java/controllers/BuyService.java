@@ -54,6 +54,7 @@ public class BuyService extends HttpServlet {
         ctx.setVariable("packages", packages);
         ctx.setVariable("validityPeriods", validityPeriods);
         ctx.setVariable("msg", request.getSession().getAttribute("msg"));
+        ctx.setVariable("username", request.getSession().getAttribute("usernameConsumer"));
         this.templateEngine.process(path, ctx, response.getWriter());
 
         request.getSession().removeAttribute("msg");

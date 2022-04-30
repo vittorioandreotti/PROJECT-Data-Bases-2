@@ -2,6 +2,8 @@ package services;
 
 import entity.Package;
 import entity.Service;
+import entity.User;
+import org.eclipse.persistence.config.QueryHints;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,7 +24,7 @@ public class ServiceService {
         List <Service> services= null;
 
         try {
-            services = entityManager.createNamedQuery("Service.findAll", Service.class).getResultList();
+            services = entityManager.createNamedQuery("Service.findAll", Service.class).setHint(QueryHints.REFRESH, true).getResultList();
         } catch (PersistenceException e) {
             e.printStackTrace();
         }

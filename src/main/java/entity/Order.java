@@ -8,9 +8,10 @@ import java.util.List;
 
 @Entity (name = "Ordeer")
 @Table (name = "ordeer", schema = "telcoservice")
-@NamedQueries(
-        @NamedQuery(name = "Order.findByInsolventUser", query = "SELECT o FROM Ordeer o WHERE o.user = :user AND o.is_valid = false")
-)
+@NamedQueries({
+        @NamedQuery(name = "Order.findByInsolventUser", query = "SELECT o FROM Ordeer o WHERE o.user = :user AND o.is_valid = false"),
+        @NamedQuery(name = "Order.getSuspendedOrders", query = "SELECT o FROM Ordeer o WHERE o.is_valid = false")
+})
 public class Order {
 
     @Id
@@ -20,7 +21,6 @@ public class Order {
     private boolean is_valid;
     private float total_price;
     private LocalDate date_start_activation;
-    private LocalDate date_end_activation;
     private int rej_numb;
     private LocalDateTime date_last_rej;
 
@@ -90,14 +90,6 @@ public class Order {
 
     public void setDate_start_activation(LocalDate date_start_activation) {
         this.date_start_activation = date_start_activation;
-    }
-
-    public LocalDate getDate_end_activation() {
-        return date_end_activation;
-    }
-
-    public void setDate_end_activation(LocalDate date_end_activation) {
-        this.date_end_activation = date_end_activation;
     }
 
     public int getRej_numb() {

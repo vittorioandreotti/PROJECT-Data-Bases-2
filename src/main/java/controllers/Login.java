@@ -34,6 +34,7 @@ public class Login extends HttpServlet {
         templateResolver.setSuffix(".html");
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext servletContext = getServletContext();
         WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
@@ -58,14 +59,14 @@ public class Login extends HttpServlet {
             return;
         }
         else {
-            request.getSession().setAttribute("username", user.getUsername());
-
             //Check on UserType end redirect to correct HomePage
             if (!user.isUser_type()) {
+                request.getSession().setAttribute("usernameConsumer", user.getUsername());
                 path = getServletContext().getContextPath() + "/getpackinfo";
                 response.sendRedirect(path);
             }
             else {
+                request.getSession().setAttribute("usernameEmployee", user.getUsername());
                 path = getServletContext().getContextPath() + "/GoToEmployeeHomePage";
                 response.sendRedirect(path);
             }
@@ -75,9 +76,5 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
-    }
-
-    public void destroy(){
-
     }
 }

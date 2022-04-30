@@ -2,30 +2,36 @@
 <html style="font-size: 16px;" lang="en">
 <head>
     <title>Confirmation</title>
-    <link rel="stylesheet" href="csss/main.css" media="screen">
-    <link rel="stylesheet" href="csss/Confirmation.css" media="screen">
-    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <link rel="stylesheet" href="cssss/main.css" media="screen">
+    <link rel="stylesheet" href="cssss/Confirmation.css" media="screen">
+    <link id="u-theme-google-font" rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
 </head>
 
-<body class="u-body u-xl-mode"><header class="u-align-center u-clearfix u-header u-header" id="sec-9706">
+<body class="u-body u-xl-mode">
+<header class="u-align-center u-clearfix u-header u-header" id="sec-9706">
     <div class="u-align-left u-clearfix u-sheet u-sheet-1">
         <h2 class="u-text u-text-default u-text-palette-1-base u-text-1">TelcoService</h2>
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1" style="opacity: 1">
             <div class="u-custom-menu u-nav-container">
                 <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
                     <li class="u-nav-item">
-                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="getpackinfo" style="padding: 10px 20px;">Home</a>
+                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90"
+                           href="getpackinfo" style="padding: 10px 20px;">Home</a>
                     </li>
                     <li class="u-nav-item">
-                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="LoginRegister.html" style="padding: 10px 20px;">Log-In</a>
+                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90"
+                           href="LoginRegister" style="padding: 10px 20px;">Log-In</a>
                     </li>
                     <li class="u-nav-item">
-                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="buyservice" style="padding: 10px 20px;">Buy Service</a>
+                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90"
+                           href="buyservice" style="padding: 10px 20px;">Buy Service</a>
                     </li>
                 </ul>
             </div>
         </nav>
-        <p class="u-text u-text-default u-text-2" style="margin: 13px 105px 14px auto; font-size: larger" th:if="${username != null}" th:text="${'Welcome ' + username}"></p>
+        <p class="u-text u-text-default u-text-2" style="margin: 13px 105px 14px auto; font-size: larger"
+           th:if="${username != null}" th:text="${'Welcome ' + username}"></p>
     </div>
 </header>
 <section class="u-align-center u-clearfix u-section-1" id="sec-d08f">
@@ -39,35 +45,57 @@
                 </colgroup>
                 <tbody class="u-table-alt-palette-1-light-3 u-table-body">
                 <tr style="height: 65px;">
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-1">Package</td>
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${package.getName()}"></td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-1">
+                        Package
+                    </td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell"
+                        th:text="${package.getName()}"></td>
                 </tr>
                 <tr style="height: 65px;">
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-3">Validity period</td>
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${validity.getNum_month() + ' months'}"></td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-3">
+                        Validity period
+                    </td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell"
+                        th:text="${validity.getNum_month() + ' months'}"></td>
                 </tr>
                 <tr style="height: 65px;" th:each="op, iterStat : ${opProds}">
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-5"><p th:if="${iterStat.first}" th:text = "${'Optional Product'}"></p></td>
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${op}"></td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-5">
+                        <p th:if="${iterStat.first && opProds != null}" th:text="${'Optional Product'}"></p></td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell"
+                        th:text="${op}"></td>
                 </tr>
                 <tr style="height: 65px;">
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-7">Start date of subscription</td>
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell" th:text="${dateSub}"></td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-first-column u-table-cell u-table-cell-7">
+                        Start date of subscription
+                    </td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-table-cell"
+                        th:text="${#temporals.format(dateSub, 'dd MMM yyyy')}"></td>
                 </tr>
                 <tr style="height: 65px;">
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-palette-1-light-2 u-table-cell u-table-cell-9">TOTAL PRICE</td>
-                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-palette-1-light-2 u-table-cell u-table-cell-10" th:text="${totalPrice}"></td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-palette-1-light-2 u-table-cell u-table-cell-9">
+                        TOTAL PRICE
+                    </td>
+                    <td class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-palette-1-light-2 u-table-cell u-table-cell-10"
+                        th:text="${totalPrice}"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <a th:href="@{/buyorder(orderId = ${orderId}, package = ${package.getId()}, validityPeriod = ${validity.getNum_month()}, opProds = ${opProds}, dateSub = ${dateSub}, totalPrice = ${totalPrice}, validity = ${true})}" class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1" style="margin: 17px auto 0 350px">BUY valid</a>
-        <a th:href="@{/buyorder(orderId = ${orderId}, package = ${package.getId()}, validityPeriod = ${validity.getNum_month()}, opProds = ${opProds}, dateSub = ${dateSub}, totalPrice = ${totalPrice}, validity = ${false})}" class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1" style="margin: -45px 350px 60px auto">BUY invalid</a>
+        <div th:if="${ordermsg == null}">
+            <a th:href="@{/buyorder(orderId = ${orderId}, package = ${package.getId()}, validityPeriod = ${validity.getNum_month()}, opProds = ${opProds}, dateSub = ${dateSub}, totalPrice = ${totalPrice}, validity = ${true})}"
+               class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1"
+               style="margin: 17px auto 0 350px">BUY valid</a>
+            <a th:href="@{/buyorder(orderId = ${orderId}, package = ${package.getId()}, validityPeriod = ${validity.getNum_month()}, opProds = ${opProds}, dateSub = ${dateSub}, totalPrice = ${totalPrice}, validity = ${false})}"
+               class="u-btn u-button-style u-hover-palette-1-dark-1 u-palette-1-base u-btn-1"
+               style="margin: -45px 350px 60px auto">BUY invalid</a>
+        </div>
         <p class="u-text u-text-palette-2-base u-text-2" th:text="${ordermsg}"></p>
     </div>
 </section>
 
 
-<footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-4706"><div class="u-align-left u-clearfix u-sheet u-sheet-1"></div></footer>
+<footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-4706">
+    <div class="u-align-left u-clearfix u-sheet u-sheet-1"></div>
+</footer>
 </body>
 </html>

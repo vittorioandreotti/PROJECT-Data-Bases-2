@@ -1,6 +1,7 @@
 package services;
 
 import entity.ReportOptProd;
+import org.eclipse.persistence.config.QueryHints;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,11 +17,11 @@ public class ReportOpProdService {
 
     public ReportOpProdService () {}
 
-    public List<ReportOptProd> findAll() {
-        List<ReportOptProd> reportOptProds;
+    public ReportOptProd bestSeller() {
+        ReportOptProd reportOptProds;
 
         try {
-            reportOptProds = entityManager.createNamedQuery("ReportOptProd.findAll", ReportOptProd.class).getResultList();
+            reportOptProds = entityManager.createNamedQuery("ReportOptProd.bestSeller", ReportOptProd.class).setHint(QueryHints.REFRESH, true).setMaxResults(1).getSingleResult();
         } catch (PersistenceException e) {
             reportOptProds = null;
             e.printStackTrace();

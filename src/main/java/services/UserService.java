@@ -62,4 +62,15 @@ public class UserService {
         }
         return user;
     }
+
+    public List<User> getInsolventUsers () {
+        List<User> insolventUsers;
+        try {
+            insolventUsers = entityManager.createNamedQuery("User.getInsolventUsers", User.class).setHint(QueryHints.REFRESH, true).getResultList();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            insolventUsers = null;
+        }
+        return insolventUsers;
+    }
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity (name = "ReportOptionalProduct")
 @Table (name = "report_optional_product", schema = "telcoservice")
-@NamedQuery(name = "ReportOptProd.findAll", query = "SELECT rop FROM ReportOptionalProduct rop")
+@NamedQuery(name = "ReportOptProd.bestSeller", query = "SELECT rop FROM ReportOptionalProduct rop ORDER BY rop.total_values_sales DESC")
 public class ReportOptProd {
 
     @Id

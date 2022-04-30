@@ -6,6 +6,7 @@ import entity.Package;
 import entity.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import services.AlertService;
@@ -40,6 +41,7 @@ public class GetPackInfo extends HttpServlet {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
         templateResolver.setTemplateMode(TemplateMode.HTML);
         this.templateEngine = new TemplateEngine();
+        this.templateEngine.addDialect(new Java8TimeDialect());
         this.templateEngine.setTemplateResolver(templateResolver);
         templateResolver.setSuffix(".html");
     }
@@ -54,8 +56,8 @@ public class GetPackInfo extends HttpServlet {
         Alert alert = null;
         boolean isInsolvent = false;
 
-        if (request.getSession().getAttribute("username") != null) {
-            user = userService.findByUsernameNamedQuery((String) request.getSession().getAttribute("username"));
+        if (request.getSession().getAttribute("usernameConsumer") != null) {
+            user = userService.findByUsernameNamedQuery((String) request.getSession().getAttribute("usernameConsumer"));
             username = user.getUsername();
             isInsolvent = user.isInsolvent();
             orders = orderService.findByInsolventUser(user);

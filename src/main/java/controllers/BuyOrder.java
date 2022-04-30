@@ -4,6 +4,7 @@ import entity.*;
 import entity.Package;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import services.*;
@@ -38,6 +39,7 @@ public class BuyOrder extends HttpServlet {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
         templateResolver.setTemplateMode(TemplateMode.HTML);
         this.templateEngine = new TemplateEngine();
+        this.templateEngine.addDialect(new Java8TimeDialect());
         this.templateEngine.setTemplateResolver(templateResolver);
         templateResolver.setSuffix(".html");
     }
@@ -47,7 +49,7 @@ public class BuyOrder extends HttpServlet {
         ServletContext servletContext = getServletContext();
         WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 
-        User user = userService.findByUsername((String) request.getSession().getAttribute("username"));
+        User user = userService.findByUsername((String) request.getSession().getAttribute("usernameConsumer"));
         Package aPackage = packageService.findById(Integer.valueOf(request.getParameter("package")));
         ValidityPeriod valPer = validityPeriodService.findByNum_Month(Integer.parseInt(request.getParameter("validityPeriod")));
         List<OptionalProduct> optProds = optionalProductService.findSet(request.getParameterValues("opProds"));
@@ -69,7 +71,7 @@ public class BuyOrder extends HttpServlet {
             try {
                 orderService.createOrder(dateStartSub, dateEndSub, totalPrice, valPer, aPackage, optProds, user, isValid);
             } catch (Exception e) {
-                ctx.setVariable("ordermsg", "Something went wrong. Order not created");
+                ctx.setVariable("ordermsg", "Something went wrong. Order not created.");
                 this.templateEngine.process(path, ctx, response.getWriter());
                 return;
             }
@@ -79,7 +81,10 @@ public class BuyOrder extends HttpServlet {
         }
         else {
             orderService.changeValidity(orderId, isValid);
-
+            if(isValid)
+                ctx.setVariable("ordermsg", "The order is valid now.");
+            if(!isValid)
+                ctx.setVariable("ordermsg", "The order is still invalid.");
             this.templateEngine.process(path, ctx, response.getWriter());
         }
     }

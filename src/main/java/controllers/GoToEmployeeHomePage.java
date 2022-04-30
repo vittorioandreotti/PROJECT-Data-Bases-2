@@ -36,8 +36,8 @@ public class GoToEmployeeHomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //Get all Services and Optional Products to display in select
-        List<Service> services = null;
-        List<OptionalProduct> optionalProducts = null;
+        List<Service> services;
+        List<OptionalProduct> optionalProducts;
         try {
             services = serviceService.findAll();
             optionalProducts = optionalProductService.findAll();
@@ -55,6 +55,7 @@ public class GoToEmployeeHomePage extends HttpServlet {
         ctx.setVariable("services", services);
         ctx.setVariable("createOptProdmsg", msgOptProd);
         ctx.setVariable("createPackmsg", msgPack);
+        ctx.setVariable("username", request.getSession().getAttribute("usernameEmployee"));
         this.templateEngine.process(path, ctx, response.getWriter());
 
         request.getSession().removeAttribute("createOptProdmsg");

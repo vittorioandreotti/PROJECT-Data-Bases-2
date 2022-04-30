@@ -31,7 +31,7 @@ public class AlertService {
         List<Alert> alerts;
 
         try {
-            alerts = entityManager.createNamedQuery("Alert.findAll", Alert.class).getResultList();
+            alerts = entityManager.createNamedQuery("Alert.findAll", Alert.class).setHint(QueryHints.REFRESH, true).getResultList();
         } catch (PersistenceException e) {
             alerts = null;
             e.printStackTrace();

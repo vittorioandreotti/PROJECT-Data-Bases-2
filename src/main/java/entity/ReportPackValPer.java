@@ -24,7 +24,7 @@ public class ReportPackValPer {
     )
     private ValidityPeriod num_month;
 
-    private float total_value_sales;
+    private int numb_purchase;
 
     public ReportPackValPer() {
     }
@@ -45,11 +45,11 @@ public class ReportPackValPer {
         this.num_month = num_month;
     }
 
-    public float getTotal_value_sales() {
-        return total_value_sales;
+    public int getNumb_purchase() {
+        return numb_purchase;
     }
 
-    public void setTotal_value_sales(float total_value_sales) {
-        this.total_value_sales = total_value_sales;
+    public void setNumb_purchase(int numb_purchase) {
+        this.numb_purchase = numb_purchase;
     }
 }

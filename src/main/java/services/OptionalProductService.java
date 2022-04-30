@@ -36,11 +36,17 @@ public class OptionalProductService {
     public List<OptionalProduct> findSet (String[] optProdNames) {
         List<OptionalProduct> optionalProducts = new ArrayList<OptionalProduct>();
         OptionalProduct optionalProduct;
-        for (String name : optProdNames) {
-            optionalProduct = this.findByName(name);
-            optionalProducts.add(optionalProduct);
+        if(optProdNames == null) {
+            optionalProducts = null;
+            return optionalProducts;
         }
-        return optionalProducts;
+        else {
+            for (String name : optProdNames) {
+                optionalProduct = this.findByName(name);
+                optionalProducts.add(optionalProduct);
+            }
+            return optionalProducts;
+        }
     }
 
     public ArrayList<String> getOptProdsNames (List<OptionalProduct> optionalProductList) {

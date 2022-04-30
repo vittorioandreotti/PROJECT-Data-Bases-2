@@ -2,11 +2,13 @@ package services;
 
 import entity.*;
 import entity.Package;
+import org.eclipse.persistence.config.QueryHints;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,11 +36,11 @@ public class OrderService {
                             boolean isValid) {
         Order newOrder = new Order();
         newOrder.setDate_start_activation(date_start_activation);
-        newOrder.setDate_end_activation(date_end_activation);
         newOrder.setTotal_price(total_price);
         newOrder.setValidity_period(validityPeriod);
         newOrder.setServ_package(serv_package);
-        newOrder.setOptionalProducts(optionalProducts);
+        if (optionalProducts.get(0) != null)
+            newOrder.setOptionalProducts(optionalProducts);
         newOrder.setUser(user);
         newOrder.setIs_valid(isValid);
         newOrder.setDate_sub(LocalDateTime.now());
@@ -46,6 +48,15 @@ public class OrderService {
             newOrder.setDate_last_rej(LocalDateTime.now());
             newOrder.setRej_numb(1);
             user.setInsolvent(true);
+        } else {
+            ServiceSchedule serviceSchedule = new ServiceSchedule();
+            serviceSchedule.setUser(user);
+            serviceSchedule.setaPackage(serv_package);
+            if (optionalProducts.get(0) != null)
+                serviceSchedule.setOptionalProduct(optionalProducts);
+            serviceSchedule.setDate_activation(date_start_activation);
+            serviceSchedule.setDate_deactivation(date_end_activation);
+            this.entityManager.persist(serviceSchedule);
         }
         this.entityManager.persist(newOrder);
         this.entityManager.merge(user);
@@ -63,7 +74,7 @@ public class OrderService {
     public float totalPrice(ValidityPeriod valPer, List<OptionalProduct> optProducts) {
         float priceOfPackage = valPer.getNum_month() * valPer.getMonthly_fee();
         float priceOfOptProds = 0;
-        float totalPrice = 0;
+        float totalPrice;
 
         if (optProducts != null) {
             for (OptionalProduct optProduct : optProducts) {
@@ -85,5 +96,16 @@ public class OrderService {
 
     public Order findById(int id) {
         return (entityManager.find(Order.class, id));
+    }
+
+    public List<Order> getSuspendedOrders () {
+        List<Order> suspendedOrders;
+        try {
+            suspendedOrders = entityManager.createNamedQuery("Order.getSuspendedOrders", Order.class).setHint(QueryHints.REFRESH, true).getResultList();
+        } catch (PersistenceException e){
+            e.printStackTrace();
+            suspendedOrders = null;
+        }
+        return suspendedOrders;
     }
 }

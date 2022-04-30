@@ -15,7 +15,7 @@ public class ReportPack {
     )
     private Package id;
     private int numb_purchase;
-    private int total_value_sales_with_op;
+    private float total_value_sales_with_op;
     private float total_value_sales_without_op;
     private float avg_optionalproduct;
 
@@ -38,11 +38,11 @@ public class ReportPack {
         this.numb_purchase = numb_purchase;
     }
 
-    public int getTotal_value_sales_with_op() {
+    public float getTotal_value_sales_with_op() {
         return total_value_sales_with_op;
     }
 
-    public void setTotal_value_sales_with_op(int total_value_sales_with_op) {
+    public void setTotal_value_sales_with_op(float total_value_sales_with_op) {
         this.total_value_sales_with_op = total_value_sales_with_op;
     }
 

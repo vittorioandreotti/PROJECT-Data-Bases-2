@@ -5,6 +5,7 @@ import entity.Package;
 import exception.UserNotLoggedIn;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import services.*;
@@ -46,6 +47,7 @@ public class ConfirmationOrder extends HttpServlet {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
         templateResolver.setTemplateMode(TemplateMode.HTML);
         this.templateEngine = new TemplateEngine();
+        this.templateEngine.addDialect(new Java8TimeDialect());
         this.templateEngine.setTemplateResolver(templateResolver);
         templateResolver.setSuffix(".html");
     }
@@ -72,7 +74,7 @@ public class ConfirmationOrder extends HttpServlet {
         dateStartSub = order.getDate_start_activation();
         totalPrice = order.getTotal_price();
 
-        ctx.setVariable("username", request.getSession().getAttribute("username"));
+        ctx.setVariable("username", request.getSession().getAttribute("usernameConsumer"));
         ctx.setVariable("package", aPackage);
         ctx.setVariable("validity", valPer);
         ctx.setVariable("opProds", optProdsNames);

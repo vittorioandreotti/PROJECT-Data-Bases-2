@@ -12,12 +12,14 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 @WebServlet(name = "CreateNewOptProd", value = "/CreateNewOptProd")
 public class CreateOptProd extends HttpServlet {
     @EJB(name = "services/OptionalProductService")
     private OptionalProductService optionalProductService;
     private TemplateEngine templateEngine;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     public CreateOptProd() {}
 
@@ -37,11 +39,11 @@ public class CreateOptProd extends HttpServlet {
         String path;
 
         String name = request.getParameter("optProdName");
-        float monthlyFee = 0;
+        float monthlyFee;
 
         //Check if monthlyFee is a number
         try {
-            monthlyFee = Float.parseFloat(request.getParameter("optProdMonthlyFee"));
+            monthlyFee = Float.parseFloat(df.format(Float.parseFloat(request.getParameter("optProdMonthlyFee"))).replace(",", "."));
         } catch (NumberFormatException exception) {
             request.getSession().setAttribute("createOptProdmsg", "Monthly Fee must be a number with Dot");
             path = getServletContext().getContextPath() + "/GoToEmployeeHomePage";
