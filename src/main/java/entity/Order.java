@@ -9,8 +9,10 @@ import java.util.List;
 @Entity (name = "Ordeer")
 @Table (name = "ordeer", schema = "telcoservice")
 @NamedQueries({
-        @NamedQuery(name = "Order.findByInsolventUser", query = "SELECT o FROM Ordeer o WHERE o.user = :user AND o.is_valid = false"),
-        @NamedQuery(name = "Order.getSuspendedOrders", query = "SELECT o FROM Ordeer o WHERE o.is_valid = false")
+        @NamedQuery(name = "Order.findByInsolventUser",
+                query = "SELECT o FROM Ordeer o WHERE o.user = :user AND o.is_valid = false"),
+        @NamedQuery(name = "Order.getSuspendedOrders",
+                query = "SELECT o FROM Ordeer o WHERE o.is_valid = false")
 })
 public class Order {
 
@@ -24,7 +26,7 @@ public class Order {
     private int rej_numb;
     private LocalDateTime date_last_rej;
 
-    //bi-directional Many-To-One association to ValidityPeriod
+    //uni-directional Many-To-One association to ValidityPeriod
     @ManyToOne
     @JoinColumn (name = "VALIDITY_PERIOD")
     private ValidityPeriod validity_period;
@@ -34,7 +36,7 @@ public class Order {
     @JoinColumn (name = "SERV_PACKAGE")
     private Package serv_package;
 
-    //uni-directional Many-To-One association to User
+    //bi-directional Many-To-One association to User
     @ManyToOne
     @JoinColumn (name = "USER")
     private User user;

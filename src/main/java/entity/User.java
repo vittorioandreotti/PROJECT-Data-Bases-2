@@ -19,8 +19,7 @@ public class User {
     private boolean user_type;
     private boolean insolvent;
 
-
-    //bi-directional One-To-Many association to Ordeer
+    //bi-directional One-To-Many association to Order
     @OneToMany (mappedBy = "user")
     private List<Order> orders;
 

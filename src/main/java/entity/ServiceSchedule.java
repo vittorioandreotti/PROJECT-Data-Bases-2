@@ -16,17 +16,17 @@ public class ServiceSchedule {
     private LocalDate date_deactivation;
 
     //uni-directional ManyToOne association to User
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "USER")
     private User user;
 
     //uni-directional ManyToOne association to Package
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "PACKAGE")
     private Package aPackage;
 
     //uni-directional ManyToOne association to OptionalProduct
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.LAZY)
     @JoinTable (
             name = "opt_sched",
             schema = "telcoservice",

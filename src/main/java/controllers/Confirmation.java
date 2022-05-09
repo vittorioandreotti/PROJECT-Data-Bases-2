@@ -18,6 +18,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "Confirmation", value = "/confirmation")
@@ -56,6 +57,7 @@ public class Confirmation extends HttpServlet {
         Package aPackage;
         ValidityPeriod valPer;
         List<OptionalProduct> optProds;
+        ArrayList<String> optProdsNames;
         LocalDate dateSub;
         String totalPrice;
 
@@ -66,6 +68,7 @@ public class Confirmation extends HttpServlet {
             aPackage = packageService.findById(Integer.parseInt(request.getParameter("select_pack")));
             valPer = validityPeriodService.findByNum_Month(Integer.parseInt(request.getParameter("select_valPer")));
             optProds = optionalProductService.findSet(request.getParameterValues("select_optProd"));
+            optProdsNames = optionalProductService.getOptProdsNames(optProds);
             dateSub = LocalDate.parse((request.getParameter("dateSub")));
             totalPrice = Float.toString(orderService.totalPrice(valPer, optProds));
         } catch (NumberFormatException e) {
@@ -88,7 +91,7 @@ public class Confirmation extends HttpServlet {
             ctx.setVariable("username", user.getUsername());
             ctx.setVariable("package", aPackage);
             ctx.setVariable("validity", valPer);
-            ctx.setVariable("opProds", request.getParameterValues("select_optProd"));
+            ctx.setVariable("opProds", optProdsNames);
             ctx.setVariable("dateSub", dateSub);
             ctx.setVariable("totalPrice",totalPrice);
 

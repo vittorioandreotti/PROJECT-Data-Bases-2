@@ -20,7 +20,7 @@ public class Package {
     @OneToMany (mappedBy = "serv_package", fetch = FetchType.LAZY)
     private List<Order> orders;
 
-    //bi-directional Many-To-Many association to Service
+    //uni-directional Many-To-Many association to Service
     @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable (
             name = "comprises",
@@ -31,7 +31,7 @@ public class Package {
     private List<Service> services;
 
     //uni-directional Many-To-Many association to OptionalProduct
-    @ManyToMany (fetch = FetchType.LAZY)
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable (
             name = "contain",
             schema = "telcoservice",

@@ -15,6 +15,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,6 +54,7 @@ public class BuyOrder extends HttpServlet {
         Package aPackage = packageService.findById(Integer.valueOf(request.getParameter("package")));
         ValidityPeriod valPer = validityPeriodService.findByNum_Month(Integer.parseInt(request.getParameter("validityPeriod")));
         List<OptionalProduct> optProds = optionalProductService.findSet(request.getParameterValues("opProds"));
+        ArrayList<String> optProdsNames = optionalProductService.getOptProdsNames(optProds);
         LocalDate dateStartSub = LocalDate.parse(request.getParameter("dateSub"));
         LocalDate dateEndSub = dateStartSub.plusMonths(valPer.getNum_month());
         float totalPrice = Float.parseFloat(request.getParameter("totalPrice"));
@@ -63,7 +65,7 @@ public class BuyOrder extends HttpServlet {
         ctx.setVariable("username", user.getUsername());
         ctx.setVariable("package", aPackage);
         ctx.setVariable("validity", valPer);
-        ctx.setVariable("opProds", request.getParameterValues("opProds"));
+        ctx.setVariable("opProds", optProdsNames);
         ctx.setVariable("dateSub", dateStartSub);
         ctx.setVariable("totalPrice", totalPrice);
 

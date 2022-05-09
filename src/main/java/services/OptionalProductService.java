@@ -37,7 +37,6 @@ public class OptionalProductService {
         List<OptionalProduct> optionalProducts = new ArrayList<OptionalProduct>();
         OptionalProduct optionalProduct;
         if(optProdNames == null) {
-            optionalProducts = null;
             return optionalProducts;
         }
         else {

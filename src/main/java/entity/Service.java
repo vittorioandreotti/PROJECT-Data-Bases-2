@@ -20,10 +20,6 @@ public class Service {
     private float fee_sms;
     private float fee_gbs;
 
-    //bi-directional Many-To-Many association to Package
-    @ManyToMany(mappedBy = "services")
-    private List<Package> packages;
-
     public Service() {
     }
 
@@ -89,13 +85,5 @@ public class Service {
 
     public void setFee_gbs(float fee_gbs) {
         this.fee_gbs = fee_gbs;
-    }
-
-    public List<Package> getPackages() {
-        return packages;
-    }
-
-    public void setPackages(List<Package> packages) {
-        this.packages = packages;
     }
 }
