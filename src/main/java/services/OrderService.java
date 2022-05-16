@@ -39,7 +39,7 @@ public class OrderService {
         newOrder.setTotal_price(total_price);
         newOrder.setValidity_period(validityPeriod);
         newOrder.setServ_package(serv_package);
-        if (optionalProducts.isEmpty())
+        if (!optionalProducts.isEmpty())
             newOrder.setOptionalProducts(optionalProducts);
         newOrder.setUser(user);
         newOrder.setIs_valid(isValid);
@@ -52,7 +52,7 @@ public class OrderService {
             ServiceSchedule serviceSchedule = new ServiceSchedule();
             serviceSchedule.setUser(user);
             serviceSchedule.setaPackage(serv_package);
-            if (optionalProducts.isEmpty())
+            if (!optionalProducts.isEmpty())
                 serviceSchedule.setOptionalProduct(optionalProducts);
             serviceSchedule.setDate_activation(date_start_activation);
             serviceSchedule.setDate_deactivation(date_end_activation);

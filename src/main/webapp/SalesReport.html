@@ -48,7 +48,7 @@
 </header>
 
 <section class="u-align-center u-clearfix u-section-1" id="sec-f59e">
-    <div th:if="${suspendedOrders.isEmpty() && alerts.isEmpty() && reportPacks.isEmpty() && reportOptProds == null && reportPackValPers.isEmpty()}">
+    <div th:if="${suspendedOrders.isEmpty() && alerts.isEmpty() && reportPacks.isEmpty() && reportOptProds == null && reportPackValPers.isEmpty()}" class="u-clearfix u-sheet u-sheet-1">
         <h2 class="u-text u-text-default u-text-1">Nothing to show.</h2>
     </div>
     <div th:if="${!suspendedOrders.isEmpty() || !alerts.isEmpty() || !reportPacks.isEmpty() || reportOptProds != null || !reportPackValPers.isEmpty()}">
