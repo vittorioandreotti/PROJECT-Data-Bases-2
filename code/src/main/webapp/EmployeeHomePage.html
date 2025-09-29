@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Home</title>
+    <link rel="stylesheet" href="cssss/main.css" media="screen">
+    <link rel="stylesheet" href="cssss/EmployeeHomePage.css" media="screen">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+</head>
+
+<body class="u-body u-xl-mode">
+<header class="u-clearfix u-header u-header" id="sec-9706">
+    <div class="u-align-left u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-default u-text-palette-1-base u-text-1">TelcoService</h2>
+        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1" style="opacity: 1">
+            <div class="u-custom-menu u-nav-container">
+                <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
+                    <li class="u-nav-item">
+                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="GoToEmployeeHomePage" style="padding: 10px 20px;">Home</a>
+                    </li>
+                    <li class="u-nav-item">
+                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="SalesReport" style="padding: 10px 20px;">Sales Report</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <p class="u-text u-text-default u-text-2" style="margin: 13px 105px 14px auto; font-size: larger" th:if="${username != null}" th:text="${'Welcome ' + username}"></p>
+    </div>
+</header>
+<section class="u-clearfix u-section-1" id="sec-a058">
+    <div class="u-clearfix u-sheet u-valign-top u-sheet-1">
+        <h4 class="u-text u-text-default u-text-1">Welcome in Employee Home Page.</h4>
+    </div>
+</section>
+
+    <section class="u-clearfix u-section-1" id="sec-9e91">
+        <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+                <div class="u-layout" style="">
+                    <div class="u-layout-row" style="">
+                        <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-1">
+                            <div class="u-container-layout u-container-layout-1">
+                                <h4 class="u-text u-text-default u-text-1">Service Package</h4>
+                                <h5 class="u-text u-text-default u-text-2">Fill in this form to create a new Service Package</h5>
+                                    <div class="u-form u-form-1">
+                                        <form action="CreatePackage" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="Loginform" style="padding: 10px;">
+                                            <div class="u-form-group u-form-group-1">
+                                                <label for="text-6e36" class="u-label">Name</label>
+                                                <input type="text" placeholder="" id="text-6e36" name="packName" class="u-border-1 u-border-grey-30 u-input u-input-rectangle" required="required">
+                                            </div>
+                                            <div class="u-form-group u-form-select u-form-group-2">
+                                                <label for="select-1d4f" class="u-label">Select Services</label>
+                                                <div class="u-form-select-wrapper">
+                                                    <select id="select-1d4f" name="services" class="u-border-1 u-border-grey-30 u-input u-input-rectangle" size="7" multiple="multiple" required="required">
+                                                        <option th:each="s : ${services}" th:text="${s.getId() + ' - ' + s.getType()}" th:value="${s.id}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="u-form-group u-form-select u-form-group-3">
+                                                <label for="select-fd6d" class="u-label">Select Optional Products to associate with the Package</label>
+                                                <div class="u-form-select-wrapper">
+                                                    <select id="select-fd6d" name="optProd" class="u-border-1 u-border-grey-30 u-input u-input-rectangle" size="7" multiple="multiple">
+                                                        <option th:each="op : ${optionalProducts}" th:text="${op.name}" th:value="${op.name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="u-align-left u-form-group u-form-submit">
+                                                <input type="submit" value="Create" class="u-btn u-btn-submit u-button-style">
+                                            </div>
+                                        </form>
+                                    </div>
+                                <p class="u-text u-text-palette-2-base u-text-3" th:text="${createPackmsg}"></p>
+                            </div>
+                        </div>
+                        <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-2">
+                            <div class="u-container-layout u-container-layout-2">
+                                <h4 class="u-text u-text-default u-text-4">Optional Product</h4>
+                                <h5 class="u-text u-text-default u-text-5">Fill in this form to create a new Optional Product</h5>
+                                <div class="u-form u-form-2">
+                                    <form action="CreateNewOptProd" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="Loginform" style="padding: 10px;">
+                                        <div class="u-form-group u-form-group-5">
+                                            <label for="text-6a36" class="u-label">Name</label>
+                                            <input type="text" placeholder="" id="text-6a36" name="optProdName" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                                        </div>
+                                        <div class="u-form-group u-form-group-6">
+                                            <label for="text-9c83" class="u-label">Monthly Fee</label>
+                                            <input type="text" placeholder="" id="text-9c83" name="optProdMonthlyFee" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                                        </div>
+                                        <div class="u-align-left u-form-group u-form-submit">
+                                            <input type="submit" value="Create" class="u-btn u-btn-submit u-button-style">
+                                        </div>
+                                    </form>
+                                </div>
+                                <p class="u-text u-text-palette-2-base u-text-3" th:text="${createOptProdmsg}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-4706"><div class="u-align-left u-clearfix u-sheet u-sheet-1"></div></footer>
+    <section class="u-backlink u-clearfix u-grey-80">
+    </section>
+  </body>
+</html>

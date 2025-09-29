@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Log-In</title>
+    <link rel="stylesheet" href="cssss/main.css" media="screen">
+    <link rel="stylesheet" href="cssss/loginregister.css" media="screen">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+</head>
+
+<body class="u-body u-xl-mode">
+<header class="u-clearfix u-header u-header" id="sec-9706"><div class="u-align-left u-clearfix u-sheet u-sheet-1">
+    <h2 class="u-text u-text-default u-text-palette-1-base u-text-1">TelcoService</h2>
+    <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1" style="opacity: 1">
+        <div>
+            <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
+                <li class="u-nav-item">
+                    <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="getpackinfo" style="padding: 10px 20px;">Home</a>
+                </li>
+                <li class="u-nav-item">
+                    <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="LoginRegister" style="padding: 10px 20px;">Log-In</a>
+                </li>
+                <li class="u-nav-item">
+                    <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90" href="buyservice" style="padding: 10px 20px;">Buy Service</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <p class="u-text u-text-default u-text-2" style="margin: 13px 105px 14px auto; font-size: larger" th:if="${username != null}" th:text="${'Welcome ' + username}"></p>
+</div>
+</header>
+<section class="u-clearfix u-section-1" id="sec-16b9">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+            <div class="u-layout">
+                <div class="u-layout-row">
+                    <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-1">
+                        <div class="u-container-layout u-valign-top u-container-layout-1">
+                            <h4 class="u-text u-text-default u-text-1">Log-In</h4>
+                            <h5 class="u-text u-text-default u-text-2">Fill in this form to Log-In as User or Employee</h5>
+                            <div class="u-form u-form-1">
+                                <form action="login" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="Loginform" style="padding: 10px;">
+                                    <div class="u-form-group u-form-name">
+                                        <input type="text" placeholder="Username" name="username_log" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                                    </div>
+                                    <div class="u-form-group">
+                                        <input type="password" placeholder="Password" rows="4" cols="50" name="password_log" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                                    </div>
+                                    <div class="u-align-left u-form-group u-form-submit">
+                                        <input type="submit" value="Log-in"  class="u-btn u-btn-submit u-button-style">
+                                    </div>
+                                </form>
+                            </div>
+                            <p class="u-text u-text-palette-2-base u-text-3" th:text="${loginmsg}"></p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-2">
+                        <div class="u-container-layout u-valign-top u-container-layout-2">
+                            <h4 class="u-text u-text-default u-text-3">Register</h4>
+                            <h5 class="u-text u-text-default u-text-4">Fill in this form to create a Consumer Account</h5>
+                            <div class="u-form u-form-2">
+                                <form action="register" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="Registerform" style="padding: 10px;">
+                                    <div class="u-form-group u-form-name">
+                                        <input type="text" placeholder="Username" name="username_reg" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                                    </div>
+                                    <div class="u-form-email u-form-group">
+                                        <input type="email" placeholder="Email" name="email_reg" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                                    </div>
+                                    <div class="u-form-group">
+                                        <input type="password" placeholder="Password" rows="4" cols="50" name="password_reg" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                                    </div>
+                                    <div class="u-align-left u-form-group u-form-submit">
+                                        <input type="submit" value="Register" class="u-btn u-btn-submit u-button-style">
+                                    </div>
+                                </form>
+                            </div>
+                            <p class="u-text u-text-palette-2-base u-text-3" th:text="${registermsg}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-4706"><div class="u-align-left u-clearfix u-sheet u-sheet-1"></div></footer>
+<section class="u-backlink u-clearfix u-grey-80">
+</section>
+</body>
+</html>

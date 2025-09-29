@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="en">
+<head>
+    <title>SalesReport</title>
+    <link rel="stylesheet" href="cssss/main.css" media="screen">
+    <link rel="stylesheet" href="cssss/SalesReport.css" media="screen">
+    <link id="u-theme-google-font" rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+</head>
+
+<body class="u-body u-xl-mode">
+<header class="u-align-center u-clearfix u-header u-header" id="sec-9706">
+    <div class="u-align-left u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xl u-sheet-1">
+        <h2 class="u-text u-text-default u-text-palette-1-base u-text-1">TelcoService</h2>
+        <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1" style="opacity: 1">
+            <div class="u-custom-menu u-nav-container">
+                <ul class="u-nav u-spacing-2 u-unstyled u-nav-1">
+                    <li class="u-nav-item">
+                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90"
+                           href="GoToEmployeeHomePage" style="padding: 10px 20px;">Home</a>
+                    </li>
+                    <li class="u-nav-item">
+                        <a class="u-active-grey-5 u-button-style u-hover-grey-10 u-nav-link u-text-active-grey-90 u-text-grey-90 u-text-hover-grey-90"
+                           href="SalesReport" style="padding: 10px 20px;">Sales Report</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="u-custom-menu u-nav-container-collapse">
+                <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                    <div class="u-inner-container-layout u-sidenav-overflow">
+                        <div class="u-menu-close"></div>
+                        <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="Home.html"
+                                                      style="padding: 10px 20px;">Home</a>
+                            </li>
+                            <li class="u-nav-item"><a class="u-button-style u-nav-link" style="padding: 10px 20px;">Sales
+                                Report</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+            </div>
+        </nav>
+        <p class="u-text u-text-default u-text-2" style="margin: 13px 105px 14px auto; font-size: larger"
+           th:if="${username != null}" th:text="${'Welcome ' + username}"></p>
+    </div>
+</header>
+
+<section class="u-align-center u-clearfix u-section-1" id="sec-f59e">
+    <div th:if="${suspendedOrders.isEmpty() && alerts.isEmpty() && reportPacks.isEmpty() && reportOptProds == null && reportPackValPers.isEmpty()}" class="u-clearfix u-sheet u-sheet-1">
+        <h2 class="u-text u-text-default u-text-1">Nothing to show.</h2>
+    </div>
+    <div th:if="${!suspendedOrders.isEmpty() || !alerts.isEmpty() || !reportPacks.isEmpty() || reportOptProds != null || !reportPackValPers.isEmpty()}">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <div th:if="${!reportPacks.isEmpty()}">
+                <p class="u-text u-text-default u-text-1">Number of total purchases per Package.</p>
+                <div class="u-expanded-width u-table u-table-responsive u-table-1">
+                    <table class="u-table-entity u-table-entity-1">
+                        <colgroup>
+                            <col width="33.3%">
+                            <col width="33.3%">
+                            <col width="33.400000000000006%">
+                        </colgroup>
+                        <thead class="u-align-center u-palette-1-light-2 u-table-header u-table-header-1">
+                        <tr style="height: 44px;">
+                            <th class="u-table-cell u-table-cell-1">Package ID</th>
+                            <th class="u-table-cell u-table-cell-2">Package Name</th>
+                            <th class="u-table-cell u-table-cell-3">Number of purchases</th>
+                        </tr>
+                        </thead>
+                        <tbody class="u-align-center u-table-alt-palette-1-light-3 u-table-body u-table-body-1">
+                        <tr style="height: 47px;" th:each="rp : ${reportPacks}">
+                            <td class="u-table-cell u-table-cell-4" th:text="${rp.getId().getId()}"></td>
+                            <td class="u-table-cell u-table-cell-5" th:text="${rp.getId().getName()}"></td>
+                            <td class="u-table-cell u-table-cell-6" th:text="${rp.getNumb_purchase()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div th:if="${!reportPackValPers.isEmpty()}">
+                <p class="u-text u-text-default u-text-2">Number of total purchases per Package and Validity Period.</p>
+                <div class="u-expanded-width u-table u-table-responsive u-table-2">
+                    <table class="u-table-entity">
+                        <colgroup>
+                            <col width="25%">
+                            <col width="25%">
+                            <col width="24.900000000000006%">
+                            <col width="25.000000000000007%">
+                        </colgroup>
+                        <thead class="u-align-center u-palette-1-light-2 u-table-header u-table-header-2">
+                        <tr style="height: 44px;">
+                            <th class="u-table-cell u-table-cell-7">Package ID</th>
+                            <th class="u-table-cell u-table-cell-8">Package Name</th>
+                            <th class="u-table-cell u-table-cell-9">Validity Period</th>
+                            <th class="u-table-cell u-table-cell-10">Number of purchases</th>
+                        </tr>
+                        </thead>
+                        <tbody class="u-align-center u-table-alt-palette-1-light-3 u-table-body u-table-body-2">
+                        <tr style="height: 47px;" th:each="rpvp : ${reportPackValPers}">
+                            <td class="u-table-cell u-table-cell-11" th:text="${rpvp.getId().getId()}"></td>
+                            <td class="u-table-cell u-table-cell-12" th:text="${rpvp.getId().getName()}"></td>
+                            <td class="u-table-cell u-table-cell-13"
+                                th:text="${rpvp.getNum_month().getNum_month()}"></td>
+                            <td class="u-table-cell u-table-cell-14" th:text="${rpvp.getNumb_purchase()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div th:if="${!reportPacks.isEmpty()}">
+                <p class="u-text u-text-default u-text-3">Total value of sales per package with the Optional
+                    Products.</p>
+                <div class="u-expanded-width u-table u-table-responsive u-table-3">
+                    <table class="u-table-entity">
+                        <colgroup>
+                            <col width="33.3%">
+                            <col width="33.3%">
+                            <col width="33.400000000000006%">
+                        </colgroup>
+                        <thead class="u-align-center u-palette-1-light-2 u-table-header u-table-header-3">
+                        <tr style="height: 44px;">
+                            <th class="u-table-cell u-table-cell-15">Package ID</th>
+                            <th class="u-table-cell u-table-cell-16">Package Name</th>
+                            <th class="u-table-cell u-table-cell-17">Total values of sales</th>
+                        </tr>
+                        </thead>
+                        <tbody class="u-align-center u-table-alt-palette-1-light-3 u-table-body u-table-body-3">
+                        <tr style="height: 47px;" th:each="rp : ${reportPacks}">
+                            <td class="u-table-cell u-table-cell-18" th:text="${rp.getId().getId()}"></td>
+                            <td class="u-table-cell u-table-cell-19" th:text="${rp.getId().getName()}"></td>
+                            <td class="u-table-cell u-table-cell-20"
+                                th:text="${rp.getTotal_value_sales_with_op()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="u-text u-text-default u-text-4"> Total value of sales per package without the Optional
+                    Products.</p>
+                <div class="u-expanded-width u-table u-table-responsive u-table-4">
+                    <table class="u-table-entity">
+                        <colgroup>
+                            <col width="33.3%">
+                            <col width="33.3%">
+                            <col width="33.400000000000006%">
+                        </colgroup>
+                        <thead class="u-align-center u-palette-1-light-2 u-table-header u-table-header-4">
+                        <tr style="height: 44px;">
+                            <th class="u-table-cell u-table-cell-21">Package ID</th>
+                            <th class="u-table-cell u-table-cell-22">Package Name</th>
+                            <th class="u-table-cell u-table-cell-23">Total values of sales</th>
+                        </tr>
+                        </thead>
+                        <tbody class="u-align-center u-table-alt-palette-1-light-3 u-table-body u-table-body-4">
+                        <tr style="height: 47px;" th:each="rp : ${reportPacks}">
+                            <td class="u-table-cell u-table-cell-24" th:text="${rp.getId().getId()}"></td>
+                            <td class="u-table-cell u-table-cell-25" th:text="${rp.getId().getName()}"></td>
+                            <td class="u-table-cell u-table-cell-26" th:text="${rp.getTotal_value_sales_without_op()}"
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="u-text u-text-default u-text-5">Average number of Optional Products sold together with each
+                    Service
+                    Package.</p>
+                <div class="u-expanded-width u-table u-table-responsive u-table-5">
+                    <table class="u-table-entity">
+                        <colgroup>
+                            <col width="33.3%">
+                            <col width="33.3%">
+                            <col width="33.400000000000006%">
+                        </colgroup>
+                        <thead class="u-align-center u-palette-1-light-2 u-table-header u-table-header-5">
+                        <tr style="height: 44px;">
+                            <th class="u-table-cell u-table-cell-27">Package ID</th>
+                            <th class="u-table-cell u-table-cell-28">Package Name</th>
+                            <th class="u-table-cell u-table-cell-29">Average number of Optional Products</th>
+                        </tr>
+                        </thead>
+                        <tbody class="u-align-center u-table-alt-palette-1-light-3 u-table-body u-table-body-5">
+                        <tr style="height: 47px;" th:each="rp : ${reportPacks}">
+                            <td class="u-table-cell u-table-cell-30" th:text="${rp.getId().getId()}"></td>
+                            <td class="u-table-cell u-table-cell-31" th:text="${rp.getId().getName()}"></td>
+                            <td class="u-table-cell u-table-cell-32" th:text="${rp.getAvg_optionalproduct()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div th:if="${!insolventUsers.isEmpty()}">
+                <p class="u-text u-text-default u-text-6">List of insolvent Users.</p>
+                <div class="u-expanded-width u-table u-table-responsive u-table-6">
+                    <table class="u-table-entity">
+                        <colgroup>
+                            <col width="50%">
+                            <col width="50%">
+                        </colgroup>
+                        <thead class="u-align-center u-palette-1-light-2 u-table-header u-table-header-6">
+                        <tr style="height: 44px;">
+                            <th class="u-table-cell u-table-cell-33">Username</th>
+                            <th class="u-table-cell u-table-cell-34">Email</th>
+                        </tr>
+                        </thead>
+                        <tbody class="u-align-center u-table-alt-palette-1-light-3 u-table-body u-table-body-6">
+                        <tr style="height: 47px;" th:each="iu : ${insolventUsers}">
+                            <td class="u-table-cell u-table-cell-35" th:text="${iu.getUsername()}"></td>
+                            <td class="u-table-cell u-table-cell-36" th:text="${iu.getEmail()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:if="${suspendedOrders != null}">
+                    <p class="u-text u-text-default u-text-7">List of suspended Orders.</p>
+                    <div class="u-expanded-width u-table u-table-responsive u-table-7">
+                        <table class="u-table-entity">
+                            <colgroup>
+                                <col width="25%">
+                                <col width="24.8%">
+                                <col width="25%">
+                                <col width="25.2%">
+                            </colgroup>
+                            <thead class="u-align-center u-palette-1-light-2 u-table-header u-table-header-7">
+                            <tr style="height: 26px;">
+                                <th class="u-table-cell u-table-cell-37">ID</th>
+                                <th class="u-table-cell u-table-cell-38">Number of Rejection</th>
+                                <th class="u-table-cell u-table-cell-39">Total price</th>
+                                <th class="u-table-cell u-table-cell-40">User</th>
+                            </tr>
+                            </thead>
+                            <tbody class="u-align-center u-table-alt-palette-1-light-3 u-table-body u-table-body-7">
+                            <tr style="height: 47px;" th:each="so : ${suspendedOrders}">
+                                <td class="u-table-cell u-table-cell-41" th:text="${so.getId()}"></td>
+                                <td class="u-table-cell u-table-cell-42" th:text="${so.getRej_numb()}"></td>
+                                <td class="u-table-cell u-table-cell-43" th:text="${so.getTotal_price()}"></td>
+                                <td class="u-table-cell u-table-cell-44" th:text="${so.getUser().getUsername()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${!alerts.isEmpty()}">
+                <p class="u-text u-text-default u-text-8">Alerts.</p>
+                <div class="u-expanded-width u-table u-table-responsive u-table-8">
+                    <table class="u-table-entity">
+                        <colgroup>
+                            <col width="33.4%">
+                            <col width="33%">
+                            <col width="33.6%">
+                        </colgroup>
+                        <thead class="u-align-center u-palette-1-light-2 u-table-header u-table-header-8">
+                        <tr style="height: 44px;">
+                            <th class="u-table-cell u-table-cell-45">User</th>
+                            <th class="u-table-cell u-table-cell-46">Time last rejection</th>
+                            <th class="u-table-cell u-table-cell-47">Total price</th>
+                        </tr>
+                        </thead>
+                        <tbody class="u-align-center u-table-alt-palette-1-light-3 u-table-body u-table-body-8">
+                        <tr style="height: 47px;" th:each="a : ${alerts}">
+                            <td class="u-table-cell u-table-cell-48" th:text="${a.getUser().getUsername()}"></td>
+                            <td class="u-table-cell u-table-cell-49" th:text="${#temporals.format(a.getTime_last_rejection(), 'HH:mm    dd MMM yyyy')}"></td>
+                            <td class="u-table-cell u-table-cell-50" th:text="${a.getTotal_price()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div th:if="${reportOptProds != null}">
+                <p class="u-text u-text-default u-text-9">Best Seller Optional Product.</p>
+                <div class="u-expanded-width u-table u-table-responsive u-table-9">
+                    <table class="u-table-entity">
+                        <colgroup>
+                            <col width="49.9%">
+                            <col width="50.1%">
+                        </colgroup>
+                        <thead class="u-align-center u-palette-1-light-2 u-table-header u-table-header-9">
+                        <tr style="height: 44px;">
+                            <th class="u-table-cell u-table-cell-51">Optional Product name</th>
+                            <th class="u-table-cell u-table-cell-52">Total value of sales</th>
+                        </tr>
+                        </thead>
+                        <tbody class="u-align-center u-table-alt-palette-1-light-3 u-table-body u-table-body-9">
+                        <tr style="height: 47px;">
+                            <td class="u-table-cell u-table-cell-53" th:text="${reportOptProds.getName().getName()}">Row 1</td>
+                            <td class="u-table-cell u-table-cell-54" th:text="${reportOptProds.getTotal_values_sales()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-4706">
+    <div class="u-align-left u-clearfix u-sheet u-sheet-1"></div>
+</footer>
+<section class="u-backlink u-clearfix u-grey-80">
+</section>
+</body>
+</html>
