@@ -10,7 +10,7 @@ The entire application is developed in Java, exploiting [JPA framework](https://
 ### :open_file_folder: Repository Organization
 In the repository are presented:
 * 2 folders with all the code of the project [ProjectDB]
-* A [project Report](Documentation%20JPA%20Project.pdf) in which all the phases of the project are described in detail
+* A [project Report](Report.pdf) in which all the phases of the project are described in detail
 * A [file](Project%20Description.pdf) with all the requirements of the project
 * An [installation guide](Software%20Installation%20Guide.pdf) to set up the environment to run the project
 
